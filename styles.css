@@ -19,7 +19,9 @@ body{
     width: 100vw;
     height: 10vh;
     justify-content: center;
+    border-bottom: 1px solid white;
 }
+
 
 .header_text{
     font-family:'Shizuru', cursive;
@@ -75,4 +77,80 @@ p{
 
 .hide{
     display: none;
+}
+
+.content-container{
+    display: flex;
+    height: 90vh;
+    flex-wrap: wrap;
+}
+
+.content-container > *{
+    padding: 20px 0;
+    flex: 1;
+    text-align: center;
+    color: white;
+
+}
+.main-ui{
+    order: 2;
+    flex: 50%;
+}
+
+.fruits{
+    order: 1;
+    border-right: 1px solid white;
+}
+
+.skills{
+    order: 3;
+    border-left: 1px solid white;
+}
+
+.fruits .skills{
+    flex: 25%;
+}
+
+
+.nav-container{
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid white;
+    padding-bottom: 10px;
+}
+
+.nav-container > *{
+    margin: 0 20px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 0.05rem;
+    font-size: 1.02em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border: none;
+    padding: 5px 10px;
+
+}
+
+.nav-container > *:hover{
+    filter: brightness(95%);
+}
+
+
+
+.learn{
+    background: #A38AEC;
+    
+}
+
+.improve{
+    background-color: #185722;
+   
+}
+
+.buy{
+    background-color: #435DE3;
+    
 }
