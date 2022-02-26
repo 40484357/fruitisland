@@ -11,3 +11,5 @@ function startGame(){
     startButton.classList.add('hide')
     continueButton.classList.remove('hide')
 }
+
+

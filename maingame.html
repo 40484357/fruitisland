@@ -4,9 +4,11 @@
         <meta charset="UTF-8">
         <title>Fruit Shop: Main Game</title>
         <link rel="stylesheet" href="styles.css">
+        <script defer src="game.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Shizuru&display=swap" rel="stylesheet">
+        
     </head>
     <body>
         <header class="page_header">
@@ -23,9 +25,64 @@
                     <button class="btn improve">Improve Skill</button>
                     <button class="btn buy">Buy fruit seeds</button>
                 </div>
+                <div class="seed_status">
+                    <div class="seeds_second">
+                        <p>Seeds per second</p>
+                        <p>0</p>
+                    </div>
+                    <div class="total_seeds">
+                        <p>Total Seeds</p>
+                        <p>0</p>
+                    </div>
+                </div>
+                <div class="quest_container">
+                    <p>Quests</p>
+                    <div class="quest">
+                        <p>Learn to grow lemons</p>
+                        <button class="btn" id="begin_quiz"> 
+                            Begin quiz
+                        </button>
+                    </div>
+                </div>
+                <div class="hide" id="quiz_ui" >
+                    <div class="top_bar">
+                        <button id="close">Close</button>
+                    </div>
+                    <div id="quiz_container">
+                        <div id="text"></div>
+                        <div class="start" id="tutorial_buttons">
+                            <button id="start_tutorial">Start tutorial</button>
+                            <button class="hide" id="continue_button">Continue</button>
+                        </div>
+                        
+                        <div class="hide" id="answer_btn_grid">
+                            <button class="option_btn" id="btn_one">Answer1</button>
+                            <button class="option_btn" id="btn_two">Answer2</button>
+                            <button class="option_btn" id="btn_three">Answer3</button>
+                            <button class="option_btn" id="btn_four">Answer4</button>
+                           
+                        </div>                           
+                        <div class = 'hide' id="submit-and-next">
+                            <button class="btn" id="submit_answer">Submit</button>
+                            <button class="hide btn" id="next_question">Next Question</button>
+                        </div>
+                    </div>   
+                </div>
             </div>
             <aside class="fruits">
-                Lemons
+                <div class="fruits_header">Fruits</div>
+                <div class="fruit fruit_main">
+                    <div class="fruit_type">Fruit</div>
+                    <div class="seeds_per_second">
+                        Earnings
+                    </div>
+                </div>
+                <div class="fruit hide">
+                    <div class="fruit_type" id="lemon">Lemon</div>
+                    <div class="seeds_per_second">
+                        0
+                    </div>
+                </div>
             </aside>
             <aside class="skills">
                 Skills
