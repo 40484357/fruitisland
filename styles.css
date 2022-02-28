@@ -138,20 +138,7 @@ p{
 
 
 
-.learn{
-    background: #A38AEC;
-    
-}
 
-.improve{
-    background-color: #185722;
-   
-}
-
-.buy{
-    background-color: #435DE3;
-    
-}
 
 .seed_status{
     display: flex;
@@ -178,12 +165,20 @@ p{
     padding: 0.25em 1em;
 }
 
-.quest{
+.quest-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.quests{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    flex-flow: row wrap;
+    padding: 2em 0;
+    border-bottom: 1px solid white;
 }
+
 
 #begin_quiz{
     border-radius: 10px;
@@ -195,7 +190,7 @@ p{
     border: none;
     padding: 1px 5px;
     background-color: #3EB6BD ;
-    margin: 1em 1em;
+    margin: 0.15em 1em;
 }
 
 .fruits{
@@ -226,13 +221,16 @@ p{
 
 .flex{
     display: flex;
+    justify-content: space-between;
 }
 
 
+
 #quiz_ui{
+
     flex-direction: column;
     width: 50%;
-    margin: -5% auto;
+    margin: 10% auto;
     z-index: 2;
     border-radius: 10px;
     box-shadow: 0 0 10px 2px;
@@ -240,16 +238,24 @@ p{
 
 .top_bar{
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 1em;
     
 }
 
+#score_container{
+    margin-left: 1em;
+    margin-top: 0.25em;
+    font-size: 1.15em;
+    font-weight: bold;
+}
 .top_bar > button{
     border-radius: 10px;
     background-color: darkred;
     color: white;
-    margin-top: 0.25em;
-    margin-right: 1em;
+    margin: 0.25em 1em 0;
+
 }
 
 #quiz_container{
@@ -257,6 +263,7 @@ p{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-color: #423F3F;
 }
 
 #text{
@@ -340,4 +347,19 @@ button:hover{
 
 .correct{
     background-color: green; 
+}
+
+.learn{
+    background: #A38AEC;
+    
+}
+
+.improve{
+    background-color: #185722;
+   
+}
+
+.buy{
+    background-color: #435DE3;
+    
 }

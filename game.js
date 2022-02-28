@@ -1,12 +1,31 @@
-const beginQuiz = document.getElementById('begin_quiz')
+const beginQuiz = document.getElementById('begin_first_quiz')
 const showQuiz = document.getElementById('quiz_ui')
 const textElement = document.getElementById('text')
 const nextQuestion = document.getElementById('next_question')
 const submitAnswer = document.getElementById('submit_answer')
 const submitContainer = document.getElementById('submit-and-next')
 const close = document.getElementById('close')
+const allQuests = document.getElementById('quests')
 
+const startButtonElement = document.getElementById('start_tutorial')
+const continueButtonElement = document.getElementById('continue_button')
+startButtonElement.addEventListener('click', startGame)
+continueButtonElement.addEventListener('click', continueTutorial)
 
+const tutorial_options = document.getElementById('tutorial_buttons')
+const game_buttons = document.getElementById('answer_btn_grid')
+
+const optionOne = document.getElementById('btn_one')
+const optionTwo = document.getElementById('btn_two')
+const optionThree = document.getElementById('btn_three')
+const optionFour = document.getElementById('btn_four')
+
+let quizScore = 0
+let answerCorrect = false
+let tutorialIndex = 1
+let tutorialState = false
+
+localStorage.setItem('level', 0)
 
 beginQuiz.addEventListener('click', openQuiz)
 
@@ -18,31 +37,17 @@ function openQuiz(){
     if(!tutorialState){
         startButtonElement.innerText = 'Start Quiz'
     }
+    allQuests.classList.add('hide')
+    allQuests.classList.remove('quest_container')
+   
 }
 
 function closeQuiz(){
     showQuiz.classList.add('hide')
     showQuiz.classList.remove('flex')
-    
+    allQuests.classList.remove('hide')
+    allQuests.classList.add('quest_container')
 }
-
-
-
-const startButtonElement = document.getElementById('start_tutorial')
-const continueButtonElement = document.getElementById('continue_button')
-
-startButtonElement.addEventListener('click', startGame)
-
-continueButtonElement.addEventListener('click', continueTutorial)
-
-const tutorial_options = document.getElementById('tutorial_buttons')
-
-const game_buttons = document.getElementById('answer_btn_grid')
-
-let tutorialIndex = 1
-let tutorialState = false
-
-
 
 function startGame(){
     if(tutorialState){
@@ -61,23 +66,10 @@ function continueTutorial(){
     startQuiz()}
 }
 
-nextQuestion.addEventListener('click', () => {
-    currentQuestionIndex++
-    setNextQuestion()
-})
-
-
-
 function showTextNode(textNodeIndex){
     const textNode = textNodes.find(textNode => textNode.id === textNodeIndex)
     textElement.innerText = textNode.text
-
 }
-
-const optionOne = document.getElementById('btn_one')
-const optionTwo = document.getElementById('btn_two')
-const optionThree = document.getElementById('btn_three')
-const optionFour = document.getElementById('btn_four')
 
 function startQuiz(){
 
@@ -90,27 +82,50 @@ function startQuiz(){
     optionTwo.innerText = 'STEM'
     optionThree.innerText = 'Arts and Culture'
     optionFour.innerText = 'History and Georgraphy'
+
     optionOne.addEventListener('click', generalKnowledge)
     optionTwo.addEventListener('click', stem)
     optionThree.addEventListener('click', artsAndCulture)
     optionFour.addEventListener('click', historyAndGeography)
 }
 
+nextQuestion.addEventListener('click', () => {
+    currentQuestionIndex++
+    setNextQuestion()
+})
+
 let sortQuestions, currentQuestionIndex
+let filteredArray = []
+
 
 function generalKnowledge(){
-
+    
+    
     sortQuestions = questions.sort(() => Math.random() - 0.5)
     currentQuestionIndex = 0
 
+    for(i = 0; filteredArray.length < 5; i++){
+        if(sortQuestions[currentQuestionIndex].general){
+            filteredArray.push(sortQuestions[currentQuestionIndex])
+            currentQuestionIndex++
+        } 
+    }
+    currentQuestionIndex = 0
+    console.log(filteredArray)
     setNextQuestion()
+    
 }
 
 function setNextQuestion(){
     resetState()
-    showQuestion(sortQuestions[currentQuestionIndex])
-    
+    if(currentQuestionIndex < filteredArray.length){
+        showQuestion(filteredArray[currentQuestionIndex])
+    } else {
+        endGame()
+    }
 }
+
+
 
 function resetState(){
     nextQuestion.classList.add('hide')
@@ -121,20 +136,22 @@ function resetState(){
     }
 }
 
-
 function showQuestion(question){
+    
+   
     textElement.innerText = question.question
     question.answers.forEach(answer => {
-        const button = document.createElement('button')
-        button.innerText = answer.text
-        button.classList.add('answer_btn')
-        if(answer.correct){
-            button.dataset.correct = answer.correct
-            button.id = 'correct'
-        }
-        button.addEventListener('click', selectAnswer)
-        game_buttons.appendChild(button)
+    const button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('answer_btn')
+    if(answer.correct){
+        button.dataset.correct = answer.correct
+        button.id = 'correct'
+    }
+    button.addEventListener('click', selectAnswer)
+    game_buttons.appendChild(button)
     })
+    
     
 }
 
@@ -166,27 +183,25 @@ function submit(selectedButton){
     
     if(selectedButton.dataset.correct){
         selectedButton.id = "correct"
+        submitAnswer.removeEventListener('click', wrongAnswer)
         submitAnswer.addEventListener('click', correctAnswer)
     } else {
+        submitAnswer.removeEventListener('click', correctAnswer)
         submitAnswer.addEventListener('click', wrongAnswer)
     }
 }
 
-// function checkAnswer(){
-//     if(selectedButton.dataset){
-//         correctAnswer(selectedButton)
-//     } else {
-//         wrongAnswer(selectedButton)
-//     }
-// }
+
 
 function correctAnswer(){
     const correctAnswer = document.getElementById("correct")
     correctAnswer.classList.add('correct')
+    quizScore = quizScore + 1
     textElement.innerText = "Correct!"
     submitAnswer.classList.add('hide')
     nextQuestion.classList.remove('hide')
-    increaseScore()
+    
+    showScore()
 }
 
 function wrongAnswer(){
@@ -197,42 +212,204 @@ function wrongAnswer(){
     correctAnswer.classList.add('correct')
     nextQuestion.classList.remove('hide')
     submitAnswer.classList.add('hide')
-}
-
-
-
-
-
-function increaseScore(score){
     
-    score = 0
-    score++
-    console.log(score)
+    showScore()
+}
 
+function showScore(){
+    
+   scoreContainerElement = document.getElementById('score_container')
+   console.log(quizScore)
+   scoreContainerElement.innerText = ('Score: ' + quizScore + '/' + (currentQuestionIndex + 1))
+   scoreContainerElement.classList.remove('hide')
+   
+}
+
+function endGame(){
+    resetState()
+    submitContainer.classList.remove('hide')
+    submitAnswer.classList.add('hide')
+    const endButton = document.createElement('button')
+    endButton.innerText = 'Complete'
+    endButton.classList.add('btn')
+    submitContainer.appendChild(endButton)
+    if(quizScore == 5){
+        textElement.innerText = 'complete!'
+    } else {
+        textElement.innerText = 'Nice try!'
+    }
+    
+    endButton.addEventListener('click', () => {
+    closeQuiz()
+    startQuiz()
+    submitContainer.removeChild(endButton)
+    localStorage.level =+ 1
+    console.log('local storage level is ' + localStorage.level)
+    quizScore = 0
+    currentQuestionIndex = 0
+    filteredArray = []
+    game_buttons.appendChild(optionOne)
+    game_buttons.appendChild(optionTwo)
+    game_buttons.appendChild(optionThree)
+    game_buttons.appendChild(optionFour)
+    scoreContainerElement.innerText = 0;
+    scoreContainerElement.classList.add('hide')
+    nextQuest()
+    })
 }
 
 
+function nextQuest(){
+    const questElement = document.getElementById('quest_container')
+
+    while(questElement.firstChild){
+        questElement.removeChild(questElement.firstChild)
+    }
+
+    quests.forEach(quest => {
+        if(quest.id == localStorage.level){
+        const questView = document.createElement('div')
+        questView.classList.add('quests')
+        const newQuest = document.createElement('div')
+        const beginQuizBtn = document.createElement('button')
+        newQuest.innerText = quest.text
+        beginQuizBtn.innerText = 'Begin quiz'
+        beginQuizBtn.addEventListener('click', openQuiz)
+        newQuest.classList.add('flex')
+        beginQuizBtn.classList.add('btn')
+        questElement.append(questView)
+        questView.append(newQuest, beginQuizBtn)
+        }
+
+    })
+    
+}
 
 const questions = [
+    
     {
+        
         question: 'What is the longest river in the world?',
+        general: true,
+        geography: true,
         answers: [
-            
             { text: 'The Nile', correct: true },
             { text: 'The Amazon River', correct: false },
             { text: 'Yellow River', correct: false },
             { text: 'Amur River', correct: false }
         ],
+
+        
+
+        difficulty: [
+            {easy: true},
+            {medium: true},
+            {hard: false},
+            {very_hard: false}
+        ]
     },
     {
+        
         question: 'In computing what does RAM stand for?',
+        general: true,
         answers: [
             {text: 'Reading Active Megabits', correct: false},
             {text: 'Really Active Motherboard', correct: false},
             {text: 'Random Access Memory', correct: true},
             {text: 'Right Access Memory', correct: false}
+        ],
+        
+        difficulty: [
+            {easy: true},
+            {medium: true},
+            {hard: false},
+            {very_hard: false},
         ]
-    }
+    },
+    {
+        
+        question: 'Who painted the mona lisa?',
+        general: true,
+        answers: [
+            {text: 'Reading Active Megabits', correct: false},
+            {text: 'Really Active Motherboard', correct: false},
+            {text: 'Random Access Memory', correct: true},
+            {text: 'Right Access Memory', correct: false}
+        ],
+        
+        difficulty: [
+            {easy: true},
+            {medium: true},
+            {hard: false},
+            {very_hard: false},
+        ]
+    },
+    {
+        
+        question: 'Who painted the mona lisa?',
+        general: true,
+        answers: [
+            {text: 'Reading Active Megabits', correct: false},
+            {text: 'Really Active Motherboard', correct: false},
+            {text: 'Random Access Memory', correct: true},
+            {text: 'Right Access Memory', correct: false}
+        ],
+        
+        difficulty: [
+            {easy: true},
+            {medium: true},
+            {hard: false},
+            {very_hard: false},
+        ]
+    },
+    {
+        
+        question: 'Whose death led to the eventual start of World War 1?',
+        general: true,
+        answers: [
+            {text: 'Reading Active Megabits', correct: false},
+            {text: 'Really Active Motherboard', correct: false},
+            {text: 'Random Access Memory', correct: true},
+            {text: 'Right Access Memory', correct: false}
+        ],
+        
+        difficulty: [
+            {easy: true},
+            {medium: true},
+            {hard: false},
+            {very_hard: false},
+        ]
+    },
+    {
+        
+        question: 'How many megabytes are in a gigabyte?',
+        general: true,
+        answers: [
+            {text: 'Reading Active Megabits', correct: false},
+            {text: 'Really Active Motherboard', correct: false},
+            {text: 'Random Access Memory', correct: true},
+            {text: 'Right Access Memory', correct: false}
+        ],
+        
+        difficulty: [
+            {easy: true},
+            {medium: true},
+            {hard: false},
+            {very_hard: false},
+        ]
+    },
+]
+
+const quests = [
+    {
+        id: 1,
+        text: 'When life gives you lemons...',
+        quizStage: 'begin_second_quiz'
+    },
+    {
+        id: 1,
+        text: 'Sour Sweets',
+    },
 ]
 
 function stem(){
@@ -244,8 +421,6 @@ function artsAndCulture(){
 function historyAndGeography(){
     console.log('history')
 }
-
-
 
 const textNodes = [
     {

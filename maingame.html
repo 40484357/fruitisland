@@ -18,34 +18,9 @@
         </header>
         <div class="content-container">
             <div class="main-ui">
-                <div class="nav-container">
-                    <button class="btn learn">
-                        Learn new skill
-                    </button>
-                    <button class="btn improve">Improve Skill</button>
-                    <button class="btn buy">Buy fruit seeds</button>
-                </div>
-                <div class="seed_status">
-                    <div class="seeds_second">
-                        <p>Seeds per second</p>
-                        <p>0</p>
-                    </div>
-                    <div class="total_seeds">
-                        <p>Total Seeds</p>
-                        <p>0</p>
-                    </div>
-                </div>
-                <div class="quest_container">
-                    <p>Quests</p>
-                    <div class="quest">
-                        <p>Learn to grow lemons</p>
-                        <button class="btn" id="begin_quiz"> 
-                            Begin quiz
-                        </button>
-                    </div>
-                </div>
                 <div class="hide" id="quiz_ui" >
                     <div class="top_bar">
+                        <div class="hide" id="score_container">Score: 0/0</div>
                         <button id="close">Close</button>
                     </div>
                     <div id="quiz_container">
@@ -68,6 +43,35 @@
                         </div>
                     </div>   
                 </div>
+                <div class="nav-container">
+                    <button class="btn learn">
+                        Learn new skill
+                    </button>
+                    <button class="btn improve">Improve Skill</button>
+                    <button class="btn buy">Buy fruit seeds</button>
+                </div>
+                <div class="seed_status">
+                    <div class="seeds_second">
+                        <p>Seeds per second</p>
+                        <p>0</p>
+                    </div>
+                    <div class="total_seeds">
+                        <p>Total Seeds</p>
+                        <p>0</p>
+                    </div>
+                </div>
+                <div class="quest_container" id="quests">
+                    <p>Quests</p>
+                    <div class="quest-container" id = 'quest_container' >
+                        <div class="quests" id = 'quest-view-holder'>
+                            <div class = "flex" id="currentQuest">Learn to grow Lemons</div>
+                            <button class="btn" id="begin_first_quiz"> 
+                                Begin quiz
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
             <aside class="fruits">
                 <div class="fruits_header">Fruits</div>
