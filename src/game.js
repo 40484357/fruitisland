@@ -33,6 +33,7 @@ if(userId != null){
 var interval = setInterval(saveData, 1000000)
 
 function saveData(){
+if(userId != null){
   updateDoc(doc(colRef, userId), {
     username: localStorage.username,
     level: localStorage.level,
@@ -42,6 +43,7 @@ function saveData(){
     visited: true,
     lemonFruit: localStorage.lemonFruit
   })
+} 
 }
 
 /* variables */
