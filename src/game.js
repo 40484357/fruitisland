@@ -25,7 +25,10 @@ const colRef = collection(db, 'userdata')
 
 let userId = localStorage.uid
 
-setDoc(doc(colRef, userId), {uid: userId})
+
+if(userId != null){
+    setDoc(doc(colRef, userId), {uid: userId})
+}
 
 var interval = setInterval(saveData, 1000000)
 
