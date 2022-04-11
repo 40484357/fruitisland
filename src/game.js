@@ -91,12 +91,20 @@ const gameLoadFruits = [
     {
         Fruit: 'lemon',
         levelRequired: 0,
-        requiredValue: 'lemonFruit'
+        requiredValue: 'lemonFruit',
+        color: '#dee64e'
     },
     {
-        Fruit: 'watermelon',
-        levelRequired: 5,
-        requiredValue: 'watermelon'
+        Fruit: 'apple',
+        levelRequired: 2,
+        requiredValue: 'apple',
+        color: '#8dbf47'
+    },
+    {
+        Fruit: 'banana',
+        levelRequired: 4,
+        requiredValue: 'banana',
+        color: '#c6c959'
     }
 ] 
 
@@ -104,7 +112,20 @@ const gameLoadSkills = [
     {
         Skill: 'Lemonade',
         levelRequired: 1,
-        requiredValue: 'Lemonade'
+        requiredValue: 'Lemonade',
+        color: "#fff07d"
+    },
+    {
+        Skill: 'Toffee Apples',
+        levelRequired: 3,
+        requiredValue: 'Toffee Apples',
+        color: "#d5ff82"
+    },
+    {
+        Skill: 'Banana Bread',
+        levelRequired: 5,
+        requiredValue: 'Banana Bread',
+        color: "#d9d289"
     }
 ]
 
@@ -132,18 +153,12 @@ const quests = [
     {
         id: 5,
         text: 'Banana bread for scale',
-        questValue: 'banana bread'
+        questValue: 'Banana Bread'
     }
 ]
  
 function onGameLoad(){
 
-    const newFruit = document.createElement('div')
-    const fruitType = document.createElement('div')
-    const valueView = document.createElement('div')
-    const newSkill = document.createElement('div')
-    const skillType = document.createElement('div')
-    const skillValue = document.createElement('div')
 
     let userdata = [];
 
@@ -165,45 +180,77 @@ function onGameLoad(){
     }
     }
 
+
     seedsPS.innerText = localStorage.seeds_per_second
     totalSeedsItem.innerText = localStorage.totalSeeds
 
     gameLoadFruits.forEach(fruit =>{
 
         let fruitRequired = fruit.requiredValue
-        if(localStorage.getItem(fruitRequired) > 0){
-            console.log(fruitRequired)
-            newFruit
-            fruitType
-            valueView
-            fruitType.innerHTML = fruit.Fruit
-            let fruitValue = localStorage.getItem(fruitRequired)
-            valueView.innerHTML = fruitValue + ' seeds'
-            newFruit.append(fruitType, valueView)
-            newFruit.classList.add('fruit')
-            fruitsContainer.append(newFruit)
-        }
+        let fruitName = fruit.Fruit
+        let fruitColor = fruit.color
+
+
+        loadFruitItem(fruitRequired, fruitName, fruitColor)
     })
 
     gameLoadSkills.forEach(skill =>{
         let skillRequired = skill.requiredValue
-            if(localStorage.getItem(skillRequired) > 0){
-                console.log(skillRequired)
-                newSkill
-                skillType
-                skillValue
-                skillType.innerHTML = skill.Skill
-                let skillName = skill.requiredValue
-                let fruitValue = localStorage.getItem(skillName)
-                skillValue.innerHTML = fruitValue + ' seeds'
-                newSkill.append(skillType, skillValue)
-                newSkill.classList.add('fruit')
-                skillsContainer.append(newSkill)
-        }
+        let skillName = skill.Skill
+        let skillColor = skill.color
+        
+        loadSkillItem(skillRequired, skillName, skillColor)
     })
 
     if(localStorage.level > 0){
         nextQuest()
+    }
+}
+
+function loadFruitItem(fruitRequired, fruitName, fruitColor){
+    const newFruit = document.createElement('div')
+    const fruitType = document.createElement('div')
+    const valueView = document.createElement('div')
+
+
+    if(localStorage.getItem(fruitRequired) > 0){
+        newFruit
+        fruitType
+        valueView
+        fruitType.innerHTML = fruitName
+        let fruitValue = localStorage.getItem(fruitRequired)
+        valueView.innerHTML = fruitValue + ' seeds'
+        newFruit.style.backgroundColor = fruitColor
+        newFruit.style.color = '#000000'
+        newFruit.style.fontWeight = 600
+        newFruit.append(fruitType, valueView)
+        newFruit.classList.add('fruit')
+        if(fruitValue )
+
+        fruitsContainer.append(newFruit)
+    }
+}
+
+function loadSkillItem(skillRequired, skillName, skillColor){
+    const newSkill = document.createElement('div')
+    const skillType = document.createElement('div')
+    const valueView = document.createElement('div')
+
+    if(localStorage.getItem(skillRequired) > 0){
+        newSkill
+        skillType
+        valueView
+
+        skillType.innerHTML = skillName
+        let skillValue = localStorage.getItem(skillRequired)
+
+        valueView.innerHTML = skillValue + ' seeds'
+        newSkill.style.backgroundColor = skillColor
+        newSkill.style.color = "#000000"
+        newSkill.style.fontWeight = 600
+        newSkill.append(skillType, valueView)
+        newSkill.classList.add('fruit')
+        skillsContainer.append(newSkill)
     }
 }
 
@@ -756,15 +803,10 @@ function nextQuest(){
     saveData()
 } //checks level and compares to quests values, adapts the quest ui to display the quests available based on level. 
 
-
-
-
-
 const textNodes = [
     {
         id: 1,
         text: 'Welcome to the quiz tutorial, here is how it works. There are four categories: General Knowledge, STEM, Arts and Culture, and History and Geography',
-        
         
     },
     {
@@ -827,6 +869,9 @@ function createFruit (quizScore){
             let fruitValue = fruit.value*quizScore
             valueView.innerHTML = fruitValue + ' seeds'
             newFruit.append(fruitType, valueView)
+            newFruit.style.backgroundColor = fruit.color
+            newFruit.style.color = "#000000"
+            newFruit.style.fontWeight = 600
             newFruit.classList.add('fruit')
             fruitsContainer.append(newFruit)
             let seedsPerSecond = parseInt(localStorage.seeds_per_second)
@@ -846,6 +891,9 @@ function createFruit (quizScore){
             let skillValue = skill.value*quizScore
             valueView.innerHTML = skillValue + ' seeds'
             newFruit.append(fruitType, valueView)
+            newFruit.style.backgroundColor = skill.color
+            newFruit.style.color = "#000000"
+            newFruit.style.fontWeight = 600
             newFruit.classList.add('fruit')
             skillsContainer.append(newFruit)
             let seedsPerSecond = parseInt(localStorage.seeds_per_second)
@@ -888,20 +936,42 @@ const fruits = [
     {
         Fruit: 'lemon',
         value:  1,
-        requiredValue: 'lemonFruit'
+        requiredValue: 'lemonFruit',
+        color: '#dee64e'
     },
     {
-        Fruit: 'watermelon',
-        value: 1,
-        requiredValue: 'watermelon'
+        Fruit: 'apple',
+        value: 1.1,
+        requiredValue: 'apple',
+        color: '#8dbf47'
+    },
+    {
+        Fruit: 'banana',
+        value: 1.2,
+        requiredValue: 'banana',
+        color: '#c6c959'
     }
+
 ] 
 
 const skills = [
     {
         Skill: 'Lemonade',
         value: 2,
-        requiredValue: 'Lemonade'
+        requiredValue: 'Lemonade',
+        color: "#fff07d"
+    },
+    {
+        Skill: 'Toffee Apples',
+        value: 2.1,
+        requiredValue: 'Toffee Apples',
+        color: "#d5ff82"
+    },
+    {
+        Skill: 'Banana Bread',
+        Value: 2.2,
+        requiredValue: 'Banana Bread',
+        color: "#d9d289"
     }
 ]
 
