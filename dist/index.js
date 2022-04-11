@@ -27,7 +27,6 @@ function startWelcome(){
         if(welcomeIndex <= welcomeNodes.length){
             nextNode(welcomeIndex)
         } else{
-            nextNode(welcomeIndex)
             startButton.classList.add('hide')
             continueButton.classList.remove('hide')
         }
