@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import {getFirestore, collection, getDocs, addDoc, doc, getDoc, setDoc, updateDoc, query, where } from "firebase/firestore";
 import { getAnalytics, setUserId } from "firebase/analytics";
-import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -50,7 +50,7 @@ getDocs(colRef)
 
 let userId = "";
 
-const addUser = document.querySelector('.add')
+const addUser = document.querySelector('.register')
 
 addUser.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -73,12 +73,56 @@ addUser.addEventListener('submit', (e) => {
 
 
 
+//switch functionality
+
+const loginSwitch = document.getElementById("switch_login")
+const registerSwitch = document.getElementById("switch_register")
+const registerForm = document.getElementById("register_form")
+const loginForm = document.getElementById("login_form")
+
+loginSwitch.addEventListener('click', () =>{
+    
+    loginSwitch.style.backgroundColor = "#5fd47e"
+    registerSwitch.style.backgroundColor ="#d8ebdd"
+    registerSwitch.style.zIndex ="0"
+    loginSwitch.style.zIndex ="1"
+
+    
+    loginForm.classList.remove('hide')
+    registerForm.classList.add('hide')
+    
+})
+
+registerSwitch.addEventListener('click', () =>{
+  registerForm.classList.remove('hide')
+  loginForm.classList.add('hide')
+  registerSwitch.style.backgroundColor = "#5fd47e"
+  loginSwitch.style.backgroundColor = "#d8ebdd"
+  loginSwitch.style.zIndex = "0"
+  registerSwitch.style.zIndex = "1"
+
+})
 
 
+//login form
 
+const login_form = document.querySelector('.login_form')
 
+login_form.addEventListener('submit', (e) => {
+  e.preventDefault()
 
+  const email = login_form.email.value
+  const password = login_form.password.value
+  const username = login_form.username.value
+  
+  signInWithEmailAndPassword(auth, email, password)
+    .then((cred) => {
+      localStorage.setItem('uid', cred.user.uid)
+      localStorage.setItem('username', username)
+      window.location.href = "maingame.html"
 
+    })
+})
 
 
 

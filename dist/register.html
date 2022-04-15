@@ -10,21 +10,44 @@
     </head>
 
     <body>
-
-    <div class="forms">
-
-        <form class = 'add'>
+    <div class="switch">
+        <button class="l_r_btn" id="switch_register">
+            Register
+        </button>
+        <button class="l_r_btn" id="switch_login">
+            Login
+    </button>
+    </div>
+    <div class="form-container">
+    <div class="forms" id="register_form">
+        <h3>Register</h3>
+        <form class = 'register'>
             <label for="username">username</label>
             <input type="text" id="username" name="username"><br>
             <label for="email">email</label>
             <input type="email" id="email" name="email"><br>
             <label for="password">password</label>
             <input type="password" id="password" name="password"><br>
-            <input type="submit" class="btn" id="submit" name="submit">
+            <input type="submit" class="btn" id="submit" name="submit" value="register">
             
         </form>
         
         <a href="maingame.html" class="btn" id="guest">continue as guest</a>
+    </div>
+
+    <div class="forms  hide" id="login_form" >
+        <h3>Login</h3>
+        <form class="login_form">
+            <label for="username">username</label>
+            <input type="text" id="username" name="username"><br>
+            <label for="email">email</label>
+            <input type="email" id="login_email" name="email"><br>
+            <label for="password">password</label>
+            <input type="password" name="password" id="login_password"><br>
+            <input type="submit" class="btn" id="login_submit" name="login" value="login">
+        </form>
+        <a href="#" class="btn" id="guest">forgot details</a>
+    </div>
     </div>
 
         <script src="register.bundle.js"></script>

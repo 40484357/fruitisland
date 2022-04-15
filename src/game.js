@@ -1,4 +1,5 @@
-/*database initialisation*/
+/*database initialisation, and functionality for ingame -- includes saveData !important function */
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getFirestore, collection, getDocs, addDoc, doc, getDoc, setDoc, updateDoc, query, where } from "firebase/firestore";
@@ -44,9 +45,12 @@ if(userId != null){
     lemonFruit: localStorage.lemonFruit
   })
 } 
-}
+} //saves users game data
 
-/* variables */
+/*end of database functionality */
+
+
+/* in game important variables */
 
 const beginQuiz = document.getElementById('begin_quiz')
 const showQuiz = document.getElementById('quiz_ui')
@@ -55,7 +59,11 @@ const nextQuestion = document.getElementById('next_question')
 const submitAnswer = document.getElementById('submit_answer')
 const submitContainer = document.getElementById('submit-and-next')
 const close = document.getElementById('close')
+const closeOptions = document.getElementById('close_options')
 const allQuests = document.getElementById('quests')
+
+const optionsElement = document.getElementById('options')
+const optionsUI = document.getElementById('optionsUI')
 
 const startButtonElement = document.getElementById('start_tutorial')
 const continueButtonElement = document.getElementById('continue_button')
@@ -71,14 +79,11 @@ const optionThree = document.getElementById('btn_three')
 const optionFour = document.getElementById('btn_four')
 
 let quizScore = 0
-let answerCorrect = false
+// let answerCorrect = false
 let tutorialIndex = 1
- 
-//temporary
-let gkState = false
-let stemState = false
-let acState = false
-let hgState = false
+
+/*end of in game important variables */
+
 
 /* gameload handler */
 
@@ -86,25 +91,29 @@ const seedsPS = document.getElementById('seeds-per-second')
 const totalSeedsItem = document.getElementById('total-seeds')
 const fruitsContainer = document.getElementById('fruits-container')
 const skillsContainer = document.getElementById('skills-container')
+const userContainer = document.getElementById('user')
 
 const gameLoadFruits = [
     {
         Fruit: 'lemon',
         levelRequired: 0,
         requiredValue: 'lemonFruit',
-        color: '#dee64e'
+        color: '#dee64e',
+        value: 1
     },
     {
         Fruit: 'apple',
         levelRequired: 2,
         requiredValue: 'apple',
-        color: '#8dbf47'
+        color: '#8dbf47',
+        value: 1.1
     },
     {
         Fruit: 'banana',
         levelRequired: 4,
         requiredValue: 'banana',
-        color: '#c6c959'
+        color: '#c6c959',
+        value: 1.2
     }
 ] 
 
@@ -113,19 +122,22 @@ const gameLoadSkills = [
         Skill: 'Lemonade',
         levelRequired: 1,
         requiredValue: 'Lemonade',
-        color: "#fff07d"
+        color: "#fff07d",
+        value: 2
     },
     {
         Skill: 'Toffee Apples',
         levelRequired: 3,
         requiredValue: 'Toffee Apples',
-        color: "#d5ff82"
+        color: "#d5ff82",
+        value: 2.1
     },
     {
         Skill: 'Banana Bread',
         levelRequired: 5,
         requiredValue: 'Banana Bread',
-        color: "#d9d289"
+        color: "#d9d289",
+        value: 2.2
     }
 ]
 
@@ -151,7 +163,7 @@ const quests = [
         questValue: 'banana'
     },
     {
-        id: 5,
+        id: 6,
         text: 'Banana bread for scale',
         questValue: 'Banana Bread'
     }
@@ -189,25 +201,33 @@ function onGameLoad(){
         let fruitRequired = fruit.requiredValue
         let fruitName = fruit.Fruit
         let fruitColor = fruit.color
+        let value = fruit.value
 
 
-        loadFruitItem(fruitRequired, fruitName, fruitColor)
+        loadFruitItem(fruitRequired, fruitName, fruitColor, value)
     })
 
     gameLoadSkills.forEach(skill =>{
         let skillRequired = skill.requiredValue
         let skillName = skill.Skill
         let skillColor = skill.color
+        let skillValue = skill.value
         
-        loadSkillItem(skillRequired, skillName, skillColor)
+        loadSkillItem(skillRequired, skillName, skillColor, skillValue)
     })
+
+    if(localStorage.getItem('username') != null){
+        userContainer.innerHTML = localStorage.getItem('username')
+    } else {
+        userContainer.innerHTML = 'Guest#' + Math.floor(Math.random() * 150)
+    }
 
     if(localStorage.level > 0){
         nextQuest()
     }
 }
 
-function loadFruitItem(fruitRequired, fruitName, fruitColor){
+function loadFruitItem(fruitRequired, fruitName, fruitColor, value){
     const newFruit = document.createElement('div')
     const fruitType = document.createElement('div')
     const valueView = document.createElement('div')
@@ -219,19 +239,25 @@ function loadFruitItem(fruitRequired, fruitName, fruitColor){
         valueView
         fruitType.innerHTML = fruitName
         let fruitValue = localStorage.getItem(fruitRequired)
-        valueView.innerHTML = fruitValue + ' seeds'
+        let maxValue = Math.round((value * 5) * 100) / 100
+        valueView.innerHTML = fruitValue + '/' + maxValue + ' sps'
         newFruit.style.backgroundColor = fruitColor
         newFruit.style.color = '#000000'
         newFruit.style.fontWeight = 600
         newFruit.append(fruitType, valueView)
         newFruit.classList.add('fruit')
-        if(fruitValue )
+        newFruit.dataset.questvalue = fruitRequired
+        if(fruitValue/value < 5){
+            newFruit.classList.add('hover')
+            newFruit.addEventListener('click', openQuiz)
+        }
+
 
         fruitsContainer.append(newFruit)
     }
 }
 
-function loadSkillItem(skillRequired, skillName, skillColor){
+function loadSkillItem(skillRequired, skillName, skillColor, skillValue){
     const newSkill = document.createElement('div')
     const skillType = document.createElement('div')
     const valueView = document.createElement('div')
@@ -242,19 +268,29 @@ function loadSkillItem(skillRequired, skillName, skillColor){
         valueView
 
         skillType.innerHTML = skillName
-        let skillValue = localStorage.getItem(skillRequired)
-
-        valueView.innerHTML = skillValue + ' seeds'
+        let skillSeeds = localStorage.getItem(skillRequired)
+        let maxValue = Math.round((skillValue * 5) * 100)/100
+        valueView.innerHTML = skillSeeds + '/' + maxValue + ' sps'
         newSkill.style.backgroundColor = skillColor
         newSkill.style.color = "#000000"
         newSkill.style.fontWeight = 600
         newSkill.append(skillType, valueView)
         newSkill.classList.add('fruit')
         skillsContainer.append(newSkill)
+        newSkill.dataset.questvalue = skillRequired
+        if(skillSeeds/skillValue < 5){
+            newSkill.classList.add('hover')
+            newSkill.addEventListener('click', openQuiz)
+        }
     }
 }
 
 onGameLoad()
+
+
+/* end of gameload handler */
+
+
 
 
 /* maingame script */
@@ -269,7 +305,9 @@ setGameState()
 
 beginQuiz.addEventListener('click', openQuiz)
 
-close.addEventListener('click', closeQuiz)
+close.addEventListener('click', closeUI)
+
+closeOptions.addEventListener('click', closeUI)
 
 function openQuiz(e){
     sessionStorage.setItem('quest', e.target.dataset.questvalue) //sets quest value to users current quest
@@ -282,12 +320,18 @@ function openQuiz(e){
     allQuests.classList.remove('quest_container')
 } //opens the quiz UI
 
-function closeQuiz(){
+
+
+function closeUI(){
     showQuiz.classList.add('hide')
     showQuiz.classList.remove('flex')
     allQuests.classList.remove('hide')
     allQuests.classList.add('quest_container')
-} //closes the quiz UI
+    optionsUI.classList.add('hide')
+    optionsUI.classList.remove('flex')
+} //closes the opened UI
+
+
 
 function startGame(){
     if(localStorage.tutorialState < 2){
@@ -334,13 +378,16 @@ nextQuestion.addEventListener('click', () => {
     setNextQuestion()
 }) //cycles through the questions and calls next question 
 
-let sortQuestions, currentQuestionIndex
+
+/* question generators */
+
+let currentQuestionIndex
 let filteredArray = []
 
 
 function generalKnowledge(){
 
-    gkState = true
+    
     currentQuestionIndex = 0;
     getGeneralQuestions()
     
@@ -371,7 +418,7 @@ function getGeneralQuestions(){
     
 } //calls TriviaApi, loads question. Need to add parameters and catagories and figure out a fluid request method.
 
-//need to create these three functions.
+//creates stem questions
 function stem(){
 
     currentQuestionIndex = 0
@@ -453,6 +500,7 @@ function getComputerQuestions(){
     requestComputers.send()
 }
 
+//creates arts and culture questions
 function artsAndCulture(){
 
     currentQuestionIndex = 0
@@ -476,7 +524,7 @@ function getLiterature(){
 
         if(requestLiterature.status >= 200 && requestLiterature.status < 400){
             for(let i = 0; i<1; i++){
-                filteredArray.push(dataLiterature.results[Math.floor(Math.random() * 23)])
+                filteredArray.push(dataLiterature.results[Math.floor(Math.random() * 22)])
             }
         }
     }
@@ -494,9 +542,10 @@ function getFilms(){
 
         if(requestFilms.status >= 200 && requestFilms.status <400){
             for(let i = 0; i<1; i++){
-                filteredArray.push(dataFilms.results[Math.floor(Math.random() * 23)])
+                filteredArray.push(dataFilms.results[Math.floor(Math.random() * 22)])
             }
         }
+        console.log(" at films")
     }
     requestFilms.send()
 }
@@ -511,9 +560,10 @@ function getArt(){
 
         if(artRequest.status >= 200 && artRequest.status < 400){
             for(let i = 0; i < 1; i++){
-                filteredArray.push(artData.results[Math.floor(Math.random() * 8)])
+                filteredArray.push(artData.results[Math.floor(Math.random() * 7)])
             }
         }
+        console.log(" at art")
     }
     artRequest.send()
 
@@ -530,9 +580,11 @@ function getTheatre(){
 
         if(theatreRequest.status >= 200 && theatreRequest.status < 400){
             for(let i = 0; i < 1; i++){
-                filteredArray.push(theatreData.results[Math.floor(Math.random() * 8)])
+                filteredArray.push(theatreData.results[Math.floor(Math.random() * 7)])
+                
             }
         }
+        
     }
     theatreRequest.send()
 }
@@ -551,11 +603,14 @@ function getMusic(){
                 filteredArray.push(musicData.results[Math.floor(Math.random() * 23)])
             }
         }
+        
         setNextQuestion()
+        console.log(" at music")
     }
     musicRequest.send()
 }
 
+//creates History and Geography questions
 
 function historyAndGeography(){
     
@@ -602,10 +657,16 @@ function getGeographyQuestions(){
     geographyRequest.send()
 }
 
+/* end of question generators */
+
+
+/* Quiz UI and contents generator starts*/
+
 function setNextQuestion(){
     resetState()
     console.log("next question set")
     if(currentQuestionIndex < filteredArray.length){
+        console.log(filteredArray)
         showQuestion(filteredArray[currentQuestionIndex])
     } else {
         endGame()
@@ -620,8 +681,6 @@ function resetState(){
         game_buttons.removeChild(game_buttons.firstChild)
     } //removes game_button's child elements while they exist. 
 } //resets actual question UI state, called further down, hence the need to move. 
-
-
 
 function showQuestion(question){
 
@@ -694,8 +753,6 @@ function submit(selectedButton){
     }
 } //checks if the selected answer is correct when submit is pressed, removes submit event listeners and adds based on if the dataset of the selected answer is correct or not.
 
-
-
 function correctAnswer(){
     const correctAnswer = document.getElementById("correct")
     correctAnswer.classList.add('correct')
@@ -728,6 +785,10 @@ function showScore(){
    
 } //adapts the quiz score elements and updates it and shows it. 
 
+
+/* quiz UI and contents generator ends */
+
+
 //called when all questions have been cycled through
 function endGame(){
 
@@ -747,21 +808,22 @@ function endGame(){
         textElement.innerText = 'Nice try!'
     } //checks if user got all questions correct.
 
-    createFruit(quizScore)
+    let currentQuest = sessionStorage.quest
 
-    endButton.addEventListener('click', () => {
-    closeQuiz()
-    startQuiz()
-    submitContainer.removeChild(endButton)
     if(!localStorage.level){
         localStorage.setItem('level', 1)
     } else {
-        localStorage.level++
+        if(localStorage.getItem(currentQuest) == null){
+            localStorage.level++
+        } 
     } //checks if users has a level, sets if they don't, increases if they do. 
     
-    console.log('local storage level is ' + localStorage.level) //remove
 
-    quizScore = 0 
+    endButton.addEventListener('click', () => {
+    closeUI()
+    startQuiz()
+    submitContainer.removeChild(endButton)
+
     currentQuestionIndex = 0
     filteredArray = []
     game_buttons.appendChild(optionOne)
@@ -770,12 +832,28 @@ function endGame(){
     game_buttons.appendChild(optionFour)
     scoreContainerElement.innerText = 0;
     scoreContainerElement.classList.add('hide')
-    nextQuest()
+
+    if(localStorage.getItem(currentQuest) != null){
+        console.log('called improve fruit')
+        improveFruit(quizScore)
+    } else {
+        console.log('called createFruit')
+        createFruit(quizScore)
+        nextQuest()}
     }) 
+
+    
+  
 }//function resets the quiz ui and other elements like quizScore, the question index, and empties the array. Re-adds categories and hides the score, calls nextQuest.
 
 
+/* quest handler, generates quests, and displays them */
+
 function nextQuest(){
+
+    quizScore = 0 
+    
+    
     const questElement = document.getElementById('quest_container')
 
     while(questElement.firstChild){
@@ -800,50 +878,18 @@ function nextQuest(){
         }
     })
 
+    
+
     saveData()
 } //checks level and compares to quests values, adapts the quest ui to display the quests available based on level. 
 
-const textNodes = [
-    {
-        id: 1,
-        text: 'Welcome to the quiz tutorial, here is how it works. There are four categories: General Knowledge, STEM, Arts and Culture, and History and Geography',
-        
-    },
-    {
-        id: 2,
-        text: 'Each quiz will contain 5 questions. Each question you get correct will improve your skill rating, a better skill rating multiplies your earnings by your skill rating.',
-    },
-    {
-        id: 3,
-        text: 'If you get some wrong, you can attempt the quiz again but be warned each attempt will make the difficulty rise. If you get more wrong in the next attempt your skill rating will always remain at the highest value.',
-    },
-    {
-        id: 4,
-        text: 'Let me break down the categories a bit. General Knowledge encompasses all the categories with questions randomly selected from each category.',
-    },
-    { 
-        id: 5,
-        text: 'Science, Technology and Maths will be exactly as they sound an example of it will be: Who founded the gravitaional theory, Answer: Sir Isaac Newton.',
-    },
-    {
-        id: 6,
-        text: 'Arts and Culture will be popular culture references, for example: Who create the Marilyn Diptch, Answer: Andy Warhol',
-    },
-    {
-        id: 7,
-        text: 'History and Geography will be historical and geographical facts, for example: What is the largest river in the world, Answer: The Nile',
-    },
-    {
-        id: 8,
-        text: 'And that is all there is to it. When you\'re ready let\'s begin the first quiz'
-    }
-
-]
 
 
-/* money handler */
 
+/* Seeds handler. Generates the seeds, stores them and displays them. */
 
+/* This section also creates fruit and skill elements for their respective panels. These elements are used to update the users earnings (or seeds) per second
+which is used to update their total seeds  */
 
 function firstSeed (){
     if(!localStorage.seeds_per_second){
@@ -851,36 +897,54 @@ function firstSeed (){
     }
 }
 
-
 firstSeed()
 
 function createFruit (quizScore){
+
     const newFruit = document.createElement('div')
     const fruitType = document.createElement('div')
     const valueView = document.createElement('div')
     const fruitsContainer = document.getElementById('fruits-container')
     const skillsContainer = document.getElementById('skills-container')
+    
+    if(quizScore < 1){
+        quizScore = quizScore + 1
+    }
+
     fruits.forEach(fruit => {
         if(fruit.requiredValue == sessionStorage.quest){
             newFruit
             fruitType
             valueView
             fruitType.innerHTML = fruit.Fruit
-            let fruitValue = fruit.value*quizScore
-            valueView.innerHTML = fruitValue + ' seeds'
+            let fruitValue = Math.round((fruit.value*quizScore) * 100) / 100
+            let maxValue = Math.round((fruit.value * 5) * 100) /100
+            valueView.innerHTML = fruitValue + '/' + maxValue + ' sps'
+            valueView.dataset.value = fruitValue
             newFruit.append(fruitType, valueView)
             newFruit.style.backgroundColor = fruit.color
             newFruit.style.color = "#000000"
             newFruit.style.fontWeight = 600
             newFruit.classList.add('fruit')
+            newFruit.dataset.fruitValue = fruit.value
+            newFruit.dataset.questvalue = sessionStorage.quest
+            newFruit.id = sessionStorage.quest
             fruitsContainer.append(newFruit)
             let seedsPerSecond = parseInt(localStorage.seeds_per_second)
             seedsPerSecond = seedsPerSecond + fruitValue
             localStorage.setItem(sessionStorage.quest, fruitValue)
             updateSeeds(seedsPerSecond)
+
+            console.log('fruit value is ' + fruitValue)
            
+            if(quizScore < 5){
+                newFruit.classList.add('hover')
+                newFruit.addEventListener('click', openQuiz)
+            }
         }
     })
+
+   
 
     skills.forEach(skill =>{
         if(skill.requiredValue == sessionStorage.quest){
@@ -888,28 +952,70 @@ function createFruit (quizScore){
             fruitType
             valueView
             fruitType.innerHTML = skill.Skill
-            let skillValue = skill.value*quizScore
-            valueView.innerHTML = skillValue + ' seeds'
+            let skillValue = Math.round((skill.value*quizScore) * 100) / 100
+            let maxValue = Math.round((skill.value * 5) * 100) /100
+            valueView.innerHTML = skillValue + '/' + maxValue + ' sps'
             newFruit.append(fruitType, valueView)
             newFruit.style.backgroundColor = skill.color
             newFruit.style.color = "#000000"
             newFruit.style.fontWeight = 600
+            newFruit.dataset.questvalue = sessionStorage.quest
             newFruit.classList.add('fruit')
             skillsContainer.append(newFruit)
             let seedsPerSecond = parseInt(localStorage.seeds_per_second)
             seedsPerSecond = seedsPerSecond + skillValue
             localStorage.setItem(sessionStorage.quest, skillValue)
             updateSeeds(seedsPerSecond)
+
+            if(quizScore < 5){
+                newFruit.classList.add('hover')
+                newFruit.addEventListener('click', openQuiz)
+            }
         }
     })
-}
+
+
+    
+} //creates fruit !AND skill elements
+
+function improveFruit(quiz_score){
+    let currentQuest = sessionStorage.quest
+    const currentFruit = document.getElementById(currentQuest)
+    
+    const valueView = currentFruit.childNodes[1]
+
+    
+    const fruitValue = currentFruit.dataset.fruitValue
+
+    const newEarnings = Math.round((fruitValue * quiz_score) * 100) /100
+    let currentEarnings = parseInt(valueView.dataset.value)
+
+    if(currentEarnings < newEarnings){
+
+        valueView.innerHTML = newEarnings + ' sps'
+        let seedsPerSecond = parseInt(localStorage.seeds_per_second)
+        let increasedSeeds = newEarnings - currentEarnings
+
+        localStorage.setItem(currentQuest, newEarnings)
+
+        seedsPerSecond = seedsPerSecond + increasedSeeds
+        updateSeeds(seedsPerSecond)
+
+    }
+
+    if(quizScore == 5){
+        currentFruit.removeEventListener
+    }
+
+    quizScore = 0
+
+
+} //improves fruit !AND skill elements
 
 function updateSeeds (seedsPerSecond){
     const seedsPSElement = document.getElementById('seeds-per-second')
     seedsPSElement.innerHTML = seedsPerSecond
     localStorage.seeds_per_second = seedsPerSecond
-
-    
 }
 
 var interval = setInterval(incrementSeeds, 1000)
@@ -931,6 +1037,50 @@ function incrementSeeds(){
     
 }
 
+
+/* End of seeds and fruit/skill ui handler */
+
+
+/* options UI functions */
+
+const user_name = document.getElementById('user_name')
+const island_name = document.getElementById('island_name')
+
+optionsElement.addEventListener('click', () => {
+    
+    optionsUI.classList.remove('hide')
+    optionsUI.classList.add('flex')
+
+}) //opens settings UI
+
+const userUpdate = document.getElementById('userUpdate')
+
+const islandUpdate = document.getElementById('islandUpdate')
+
+userUpdate.addEventListener('click', () => {
+    
+    const userSeeds = parseInt(localStorage.totalSeeds)
+    if(userSeeds >= 100000){
+        const newUserName = user_name.value
+        localStorage.setItem('username', newUserName)
+
+        userContainer.innerHTML = newUserName
+    } else {
+        window.alert("not enough seeds")
+    }
+})
+
+islandUpdate.addEventListener('click', () => {
+    const userSeeds = parseInt(localStorage.totalSeeds)
+    if( userSeeds >= 1000000){
+        const newIslandName = island_name.value
+        const islandsName = document.getElementById('islands_name')
+        islandsName.innerHTML = newIslandName
+    }
+})
+
+
+/*in game arrays */
 
 const fruits = [
     {
@@ -969,12 +1119,47 @@ const skills = [
     },
     {
         Skill: 'Banana Bread',
-        Value: 2.2,
+        value: 2.2,
         requiredValue: 'Banana Bread',
         color: "#d9d289"
     }
 ]
 
+const textNodes = [
+    {
+        id: 1,
+        text: 'Welcome to the quiz tutorial, here is how it works. There are four categories: General Knowledge, STEM, Arts and Culture, and History and Geography',
+        
+    },
+    {
+        id: 2,
+        text: 'Each quiz will contain 5 questions. Each question you get correct will improve your skill rating, a better skill rating multiplies your earnings by your skill rating.',
+    },
+    {
+        id: 3,
+        text: 'If you get some wrong, you can attempt the quiz again but be warned each attempt will make the difficulty rise. If you get more wrong in the next attempt your skill rating will always remain at the highest value.',
+    },
+    {
+        id: 4,
+        text: 'Let me break down the categories a bit. General Knowledge encompasses all the categories with questions randomly selected from each category.',
+    },
+    { 
+        id: 5,
+        text: 'Science, Technology and Maths will be exactly as they sound an example of it will be: Who founded the gravitaional theory, Answer: Sir Isaac Newton.',
+    },
+    {
+        id: 6,
+        text: 'Arts and Culture will be popular culture references, for example: Who create the Marilyn Diptch, Answer: Andy Warhol',
+    },
+    {
+        id: 7,
+        text: 'History and Geography will be historical and geographical facts, for example: What is the largest river in the world, Answer: The Nile',
+    },
+    {
+        id: 8,
+        text: 'And that is all there is to it. When you\'re ready let\'s begin the first quiz'
+    }
 
+]
 
 
