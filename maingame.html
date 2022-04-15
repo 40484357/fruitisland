@@ -11,8 +11,14 @@
     </head>
     <body>
         <header class="page_header">
-            <div class="header_text">
-                Fruit Shop
+            <div id="user">
+                username
+            </div>
+            <div class="header_text" id="islands_name">
+                Fruit Island
+            </div>
+            <div id="options">
+               Options
             </div>
         </header>
         <div class="content-container">
@@ -42,6 +48,27 @@
                         </div>
                     </div>   
                 </div>
+                <div class="hide" id="optionsUI">
+                    <div class="top_bar">
+                        <button id="close_options">close</button>
+                    </div>
+                    <div id="options_container">
+                        <div class="flex_row">
+                            <div class="option_title">change your username for 100 000 seeds</div>
+                            <input type="text" id="user_name">
+                            <button class="btn" id="userUpdate">update</button>
+                        </div>
+                        <div class="flex_row">
+                            <div class="option_title">Name your island for 1 millions seeds</div>
+                            <input type="text" id="island_name">
+                            <button class="btn" id="islandUpdate">update</button>
+                        </div>
+                        <div class="flex_row">
+                            <div class="option_title">Create an account</div>
+                            <button class="btn"><a href="register.html">register</a></button>
+                        </div>
+                    </div>
+                </div> 
                 <div class="seed_status">
                     <div class="seeds_second">
                         <div class = 'padding-top'>Seeds per second</div>
@@ -63,7 +90,11 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="achievements flex_row">
+                    <img src="lemon.svg" alt="lemmon_achieve" class="achievement hide">
+                    <img class="achievement hide" src="apple.svg" alt="apple_achievement">
+                    <img src="banana.svg" alt="banana_achievement" class="achievement hide">
+                </div> 
             </div>
             <aside class="fruits" id="fruits-container">
                 <div class="fruits_header">Fruits</div>
