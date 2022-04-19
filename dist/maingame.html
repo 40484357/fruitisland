@@ -7,7 +7,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Gideon+Roman&family=Shizuru&display=swap" rel="stylesheet">
-        
+        <script defer src="game.bundle.js"></script>
     </head>
     <body>
         <header class="page_header">
@@ -90,10 +90,35 @@
                         </div>
                     </div>
                 </div>
-                <div class="achievements flex_row">
-                    <img src="lemon.svg" alt="lemmon_achieve" class="achievement hide">
-                    <img class="achievement hide" src="apple.svg" alt="apple_achievement">
-                    <img src="banana.svg" alt="banana_achievement" class="achievement hide">
+                <div class="hide achievements_container" id="main_ach_cont">
+                    <div class="achievements">Achievments</div>
+                    <div class="achievements_container" id="achievements_container">
+                        <div class="hide" id="lemonFruitAch">
+                            <img src="lemon.svg" alt="lemon">
+                            <span class="toolTipText">You're the lemon master now</span>
+                        </div>
+                        <div class="hide" id="LemonadeAch">
+                            <img src="lemonade.svg"  alt="lemonade">
+                            <span class="toolTipText">When lemon's give you life</span>
+                        </div>
+                        <div class="hide" id="appleAch">
+                            <img src="apple.svg"  alt="apple">
+                            <span class="toolTipText">Somebody call a doctor... but not for me</span>
+                        </div>
+                        <div class="hide" id="ToffeeAppleAch">
+                            <img src="Toffee Apples.svg" alt="toffee apple">
+                            <span class="toolTipText">How'd you like them apples!</span>
+                        </div>
+                        <div class="hide" id="bananaAch">
+                            <img src="banana.svg"  alt="banana">
+                            <span class="toolTipText">You ain't no hollaback girl! B-A-N-A-N-A-S</span>
+                        </div>
+                        <div class="hide" id="bananaBreadAch">
+                            <img src="Banana Bread.svg"  alt="banana bread">
+                            <span class="toolTipText">Gotta get that bread!</span>
+                        </div>
+                    </div>
+
                 </div> 
             </div>
             <aside class="fruits" id="fruits-container">
@@ -120,6 +145,6 @@
             </aside>
         </div>
 
-       <script src="game.bundle.js"></script>
+       
     </body>
 </html>

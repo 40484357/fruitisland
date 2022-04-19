@@ -119,10 +119,41 @@ login_form.addEventListener('submit', (e) => {
     .then((cred) => {
       localStorage.setItem('uid', cred.user.uid)
       localStorage.setItem('username', username)
-      window.location.href = "maingame.html"
+      let userId = cred.user.uid
+      localStorage.setItem('logIn', true)
 
+      loadData(userId)
     })
 })
+
+function loadData(userId){
+    getDoc(doc(colRef, userId))
+        .then((doc) => {
+         let docTime = doc.data().timestamp
+         let localTime = localStorage.timestamp
+         let localTimeInt = parseInt(localTime)
+         let docTimeInt = parseInt(docTime)
+
+         if(localTime == null || localTimeInt < docTimeInt){
+            localStorage.setItem("level", doc.data().level)
+            localStorage.setItem("correctAnswers", doc.data().correctAnswers) 
+            localStorage.setItem("lemonFruit", doc.data().lemonFruit)
+            localStorage.setItem("seeds_per_second", doc.data().seeds_per_second)
+            localStorage.setItem("questions", doc.data().questions) 
+            localStorage.setItem("totalSeeds", doc.data().totalSeeds) 
+            localStorage.setItem("tutorialState", doc.data().tutorialState) 
+            localStorage.setItem("username", doc.data().username) 
+            localStorage.setItem('apple', doc.data().apple) 
+            localStorage.setItem('banana', doc.data().banana) 
+            localStorage.setItem('Lemonade', doc.data().lemonade) 
+            localStorage.setItem('Toffee Apples', doc.data().toffeeApples) 
+            localStorage.setItem('Banana Bread', doc.data().bananaBread)
+         }
+         window.location.href = "maingame.html"
+        })
+ 
+}
+
 
 
 

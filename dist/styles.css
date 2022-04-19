@@ -4,6 +4,11 @@
     font-size: 16px;
 }
 
+@media screen and (max-width: 1000px )  {
+    *{
+        font-size: 12px;
+    }
+}
 
 
 body{
@@ -17,7 +22,7 @@ body{
 .page_header{
     display: flex;
     width: 100vw;
-    height: 10vh;
+    height: fit-content;
     justify-content: space-between;
     border-bottom: 1px solid white;
 }
@@ -55,6 +60,7 @@ body{
     font-family:'Shizuru', cursive;
     font-size: 3em;
     color: white;
+    width: fit-content;
 }
 
 .body_container{
@@ -416,8 +422,48 @@ a{
     cursor: pointer;
 }
 
-.achievement{
-    margin: 1em;
-    height: 5em;
-    width: 5em;
+.achievements{
+    font-size: 3em;
+    font-family: 'Shizuru', cursive;
+    color: white;
+    width: fit-content;
+    margin-left: 0.2em;
+    padding-bottom: 0.5em;
 }
+
+.achievements_container{
+    width:fit-content;
+}
+
+
+
+.toolTip {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
+    margin: 0 3em;
+  }
+
+  /* Tooltip text */
+.toolTip .toolTipText {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    right: -50%;
+  }
+
+.toolTipText{
+    padding: 0.2em;
+    width: 10em;
+    height:fit-content;
+}
+
+.toolTip:hover .toolTipText {
+    visibility: visible;
+  }

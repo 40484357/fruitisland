@@ -27,28 +27,210 @@ const colRef = collection(db, 'userdata')
 let userId = localStorage.uid
 
 
-if(userId != null){
+if(userId != null && localStorage.logIn == null){
     setDoc(doc(colRef, userId), {uid: userId})
 }
 
-var interval = setInterval(saveData, 1000000)
+var interval = setInterval(saveData, 100000)
 
 function saveData(){
-if(userId != null){
-  updateDoc(doc(colRef, userId), {
-    username: localStorage.username,
-    level: localStorage.level,
-    totalSeeds: localStorage.totalSeeds,
-    seeds_per_second: localStorage.seeds_per_second,
-    tutorialState: true,
-    visited: true,
-    lemonFruit: localStorage.lemonFruit
-  })
-} 
+    if(userId != null && localStorage.lemonFruit == null){
+    updateDoc(doc(colRef, userId), {
+        username: localStorage.username,
+        level: localStorage.level,
+        totalSeeds: localStorage.totalSeeds,
+        seeds_per_second: localStorage.seeds_per_second,
+        tutorialState: true,
+        visited: true,
+        timestamp: localStorage.timestamp
+    })} else if (userId != null && localStorage.Lemonade == null){
+        updateDoc(doc(colRef, userId), {
+            username: localStorage.username,
+            level: localStorage.level,
+            totalSeeds: localStorage.totalSeeds,
+            seeds_per_second: localStorage.seeds_per_second,
+            tutorialState: true,
+            visited: true,
+            lemonFruit: localStorage.lemonFruit,
+            timestamp: localStorage.timestamp,
+            questions: localStorage.questions,
+            answers: localStorage.correctAnswers
+        })
+    } else if (userId != null && localStorage.apple == null){
+        updateDoc(doc(colRef, userId), {
+            username: localStorage.username,
+            level: localStorage.level,
+            totalSeeds: localStorage.totalSeeds,
+            seeds_per_second: localStorage.seeds_per_second,
+            tutorialState: true,
+            visited: true,
+            lemonFruit: localStorage.lemonFruit,
+            lemonade: localStorage.Lemonade,
+            timestamp: localStorage.timestamp,
+            questions: localStorage.questions,
+            answers: localStorage.correctAnswers
+        })
+    } else if (userId != null && localStorage.getItem('Toffee Apples') == null){
+        updateDoc(doc(colRef, userId), {
+            username: localStorage.username,
+            level: localStorage.level,
+            totalSeeds: localStorage.totalSeeds,
+            seeds_per_second: localStorage.seeds_per_second,
+            tutorialState: true,
+            visited: true,
+            lemonFruit: localStorage.lemonFruit,
+            lemonade: localStorage.Lemonade,
+            apples: localStorage.apple,
+            timestamp: localStorage.timestamp,
+            questions: localStorage.questions,
+            answers: localStorage.correctAnswers
+        })
+    } else if (userId != null && localStorage.banana == null){
+        updateDoc(doc(colRef, userId), {
+            username: localStorage.username,
+            level: localStorage.level,
+            totalSeeds: localStorage.totalSeeds,
+            seeds_per_second: localStorage.seeds_per_second,
+            tutorialState: true,
+            visited: true,
+            lemonFruit: localStorage.lemonFruit,
+            lemonade: localStorage.Lemonade,
+            apples: localStorage.apple,
+            toffeeApples: localStorage.getItem('Toffee Apples'),
+            timestamp: localStorage.timestamp,
+            questions: localStorage.questions,
+            answers: localStorage.correctAnswers
+        })
+    } else if (userId != null && localStorage.getItem('Banana Bread') == null){
+        updateDoc(doc(colRef, userId), {
+            username: localStorage.username,
+            level: localStorage.level,
+            totalSeeds: localStorage.totalSeeds,
+            seeds_per_second: localStorage.seeds_per_second,
+            tutorialState: true,
+            visited: true,
+            lemonFruit: localStorage.lemonFruit,
+            lemonade: localStorage.Lemonade,
+            apples: localStorage.apple,
+            toffeeApples: localStorage.getItem('Toffee Apples'),
+            banana: localStorage.banana,
+            timestamp: localStorage.timestamp,
+            questions: localStorage.questions,
+            answers: localStorage.correctAnswers
+        })
+    } else if (userId != null ){
+        updateDoc(doc(colRef, userId), {
+            username: localStorage.username,
+            level: localStorage.level,
+            totalSeeds: localStorage.totalSeeds,
+            seeds_per_second: localStorage.seeds_per_second,
+            tutorialState: true,
+            visited: true,
+            lemonFruit: localStorage.lemonFruit,
+            lemonade: localStorage.Lemonade,
+            apples: localStorage.apple,
+            toffeeApples: localStorage.getItem('Toffee Apples'),
+            banana: localStorage.banana,
+            bananaBread: localStorage.getItem('Banana Bread'),
+            timestamp: localStorage.timestamp,
+            questions: localStorage.questions,
+            answers: localStorage.correctAnswers
+        })
+    }
+
+  console.log('data saved')
 } //saves users game data
 
 /*end of database functionality */
 
+
+/*in game arrays */
+
+const fruits = [
+    {
+        Fruit: 'lemon',
+        value:  1,
+        requiredValue: 'lemonFruit',
+        color: '#dee64e',
+        achievement: 'lemonFruitAch'
+    },
+    {
+        Fruit: 'apple',
+        value: 1.1,
+        requiredValue: 'apple',
+        color: '#8dbf47',
+        achievement: 'appleAch'
+    },
+    {
+        Fruit: 'banana',
+        value: 1.2,
+        requiredValue: 'banana',
+        color: '#c6c959',
+        achievement: 'bananaAch'
+    }
+
+] 
+
+const skills = [
+    {
+        Skill: 'Lemonade',
+        value: 2,
+        requiredValue: 'Lemonade',
+        color: "#fff07d",
+        achievement: 'LemonadeAch'
+    },
+    {
+        Skill: 'Toffee Apples',
+        value: 2.1,
+        requiredValue: 'Toffee Apples',
+        color: "#d5ff82",
+        achievement: 'ToffeeAppleAch'
+    },
+    {
+        Skill: 'Banana Bread',
+        value: 2.2,
+        requiredValue: 'Banana Bread',
+        color: "#d9d289",
+        achievement: 'bananaBreadAch'
+    }
+]
+
+const textNodes = [
+    {
+        id: 1,
+        text: 'Welcome to the quiz tutorial, here is how it works. There are four categories: General Knowledge, STEM, Arts and Culture, and History and Geography',
+        
+    },
+    {
+        id: 2,
+        text: 'Each quiz will contain 5 questions. Each question you get correct will improve your skill rating, a better skill rating multiplies your earnings by your skill rating.',
+    },
+    {
+        id: 3,
+        text: 'If you get some wrong, you can attempt the quiz again but be warned each attempt will make the difficulty rise. If you get more wrong in the next attempt your skill rating will always remain at the highest value.',
+    },
+    {
+        id: 4,
+        text: 'Let me break down the categories a bit. General Knowledge encompasses all the categories with questions randomly selected from each category.',
+    },
+    { 
+        id: 5,
+        text: 'Science, Technology and Maths will be exactly as they sound an example of it will be: Who founded the gravitaional theory, Answer: Sir Isaac Newton.',
+    },
+    {
+        id: 6,
+        text: 'Arts and Culture will be popular culture references, for example: Who create the Marilyn Diptch, Answer: Andy Warhol',
+    },
+    {
+        id: 7,
+        text: 'History and Geography will be historical and geographical facts, for example: What is the largest river in the world, Answer: The Nile',
+    },
+    {
+        id: 8,
+        text: 'And that is all there is to it. When you\'re ready let\'s begin the first quiz'
+    }
+
+]
 
 /* in game important variables */
 
@@ -163,35 +345,13 @@ const quests = [
         questValue: 'banana'
     },
     {
-        id: 6,
+        id: 5,
         text: 'Banana bread for scale',
         questValue: 'Banana Bread'
     }
 ]
  
 function onGameLoad(){
-
-
-    let userdata = [];
-
-    if(localStorage.uid != null){
-    getDoc(doc(colRef, userId))
-        .then((doc) => {
-         userdata.push(doc.data())
-        })
-    }
-
-    if(userdata.length > 3){
-    localStorage.setItem(level, userdata.level)
-    localStorage.setItem(seeds_per_second, userdata.seeds_per_second)
-    localStorage.setItem(totalSeeds, userdata.totalSeeds)
-    localStorage.setItem(username, userdata.username)
-    localStorage.setItem(visited, userdata.visited)
-    if(userdata.lemonFruit != null){
-        localStorage.setItem(lemonFruit, userdata.lemonFruit)
-    }
-    }
-
 
     seedsPS.innerText = localStorage.seeds_per_second
     totalSeedsItem.innerText = localStorage.totalSeeds
@@ -219,12 +379,16 @@ function onGameLoad(){
     if(localStorage.getItem('username') != null){
         userContainer.innerHTML = localStorage.getItem('username')
     } else {
-        userContainer.innerHTML = 'Guest#' + Math.floor(Math.random() * 150)
+        let genUser = Math.floor(Math.random() * 150)
+        userContainer.innerHTML = 'Guest#' + genUser
+        localStorage.setItem('username', 'Guest#' + genUser)
     }
 
     if(localStorage.level > 0){
         nextQuest()
     }
+
+    checkAchievements()
 }
 
 function loadFruitItem(fruitRequired, fruitName, fruitColor, value){
@@ -246,7 +410,10 @@ function loadFruitItem(fruitRequired, fruitName, fruitColor, value){
         newFruit.style.fontWeight = 600
         newFruit.append(fruitType, valueView)
         newFruit.classList.add('fruit')
+        newFruit.id = fruitRequired
         newFruit.dataset.questvalue = fruitRequired
+        fruitType.dataset.questvalue = fruitRequired
+        valueView.dataset.questvalue = fruitRequired
         if(fruitValue/value < 5){
             newFruit.classList.add('hover')
             newFruit.addEventListener('click', openQuiz)
@@ -255,6 +422,8 @@ function loadFruitItem(fruitRequired, fruitName, fruitColor, value){
 
         fruitsContainer.append(newFruit)
     }
+
+    
 }
 
 function loadSkillItem(skillRequired, skillName, skillColor, skillValue){
@@ -278,6 +447,10 @@ function loadSkillItem(skillRequired, skillName, skillColor, skillValue){
         newSkill.classList.add('fruit')
         skillsContainer.append(newSkill)
         newSkill.dataset.questvalue = skillRequired
+        skillType.dataset.questvalue = sessionStorage.quest
+        skillType.dataset.questvalue = skillRequired
+        valueView.dataset.questvalue = skillRequired
+        newSkill.id = skillRequired
         if(skillSeeds/skillValue < 5){
             newSkill.classList.add('hover')
             newSkill.addEventListener('click', openQuiz)
@@ -329,6 +502,7 @@ function closeUI(){
     allQuests.classList.add('quest_container')
     optionsUI.classList.add('hide')
     optionsUI.classList.remove('flex')
+    
 } //closes the opened UI
 
 
@@ -389,8 +563,9 @@ function generalKnowledge(){
 
     
     currentQuestionIndex = 0;
-    getGeneralQuestions()
     
+    getGeneralQuestions()
+   
 } 
 
 function getGeneralQuestions(){
@@ -423,10 +598,10 @@ function stem(){
 
     currentQuestionIndex = 0
     
-    getComputerQuestions()
-    getMathsQuestions()
-    getScienceQuestions()
-    
+        getComputerQuestions()
+        getMathsQuestions()
+        getScienceQuestions()
+ 
 }
 
 function getScienceQuestions(){
@@ -444,11 +619,15 @@ function getScienceQuestions(){
 
         if(requestScience.status >= 200 && requestScience.status < 400){
             for(let y = 0; y < 2; y++){
-                filteredArray.push(dataScience.results[Math.floor(Math.random() * 21)])
+                let rNum = Math.floor(Math.random() * 20)
+                filteredArray.push(dataScience.results[rNum])
+                console.log("rNum science is " + rNum)
             }
         } else {console.log('error')}
-       
+        console.log(dataScience)
     }
+
+   
 
     requestScience.send()    
 }
@@ -466,12 +645,16 @@ function getMathsQuestions(){
 
         if(requestMaths.status >= 200 && requestMaths.status < 400){
             for(let x= 0; x<1; x++){
-                console.log("length of arraymq" + filteredArray.length)
-                filteredArray.push(dataMaths.results[Math.floor(Math.random() * 9)])
+                let rNum = Math.floor(Math.random() * 8)
+
+                filteredArray.push(dataMaths.results[rNum])
+                console.log("rNum maths is " + rNum)
             }
         }
+        console.log(dataMaths)
     }
 
+    
     requestMaths.send()
 }
 
@@ -488,14 +671,17 @@ function getComputerQuestions(){
 
         if(requestComputers.status >= 200 && requestComputers.status < 400){
             for(let z = 0; z<2; z++){
-                filteredArray.push(dataComputers.results[Math.floor(Math.random() * 21)])
+                let rNum = Math.floor(Math.random() * 20)
+                filteredArray.push(dataComputers.results[rNum])
+                console.log("rNum comp is " + rNum)
             }
            
             setNextQuestion()
             
         }
-        
+        console.log(dataComputers)
     }
+    
     
     requestComputers.send()
 }
@@ -505,11 +691,12 @@ function artsAndCulture(){
 
     currentQuestionIndex = 0
 
-    getLiterature()
-    getFilms()
-    getArt()
-    getTheatre()
-    getMusic()
+    
+        getLiterature()
+        getFilms()
+        getArt()
+        getTheatre()
+        getMusic()
 
 }
 
@@ -524,7 +711,7 @@ function getLiterature(){
 
         if(requestLiterature.status >= 200 && requestLiterature.status < 400){
             for(let i = 0; i<1; i++){
-                filteredArray.push(dataLiterature.results[Math.floor(Math.random() * 22)])
+                filteredArray.push(dataLiterature.results[Math.floor(Math.random() * 21)])
             }
         }
     }
@@ -542,7 +729,7 @@ function getFilms(){
 
         if(requestFilms.status >= 200 && requestFilms.status <400){
             for(let i = 0; i<1; i++){
-                filteredArray.push(dataFilms.results[Math.floor(Math.random() * 22)])
+                filteredArray.push(dataFilms.results[Math.floor(Math.random() * 21)])
             }
         }
         console.log(" at films")
@@ -560,7 +747,7 @@ function getArt(){
 
         if(artRequest.status >= 200 && artRequest.status < 400){
             for(let i = 0; i < 1; i++){
-                filteredArray.push(artData.results[Math.floor(Math.random() * 7)])
+                filteredArray.push(artData.results[Math.floor(Math.random() * 6)])
             }
         }
         console.log(" at art")
@@ -580,7 +767,7 @@ function getTheatre(){
 
         if(theatreRequest.status >= 200 && theatreRequest.status < 400){
             for(let i = 0; i < 1; i++){
-                filteredArray.push(theatreData.results[Math.floor(Math.random() * 7)])
+                filteredArray.push(theatreData.results[Math.floor(Math.random() * 6)])
                 
             }
         }
@@ -600,7 +787,7 @@ function getMusic(){
 
         if(musicRequest.status >= 200 && musicRequest.status < 400){
             for(let i = 0; i < 1; i++){
-                filteredArray.push(musicData.results[Math.floor(Math.random() * 23)])
+                filteredArray.push(musicData.results[Math.floor(Math.random() * 21)])
             }
         }
         
@@ -617,8 +804,10 @@ function historyAndGeography(){
 
     currentQuestionIndex = 0
 
-    getHistoryQuestions()
-    getGeographyQuestions()
+    
+        getHistoryQuestions()
+        getGeographyQuestions()
+  
 }
 
 function getHistoryQuestions(){
@@ -631,7 +820,7 @@ function getHistoryQuestions(){
 
         if(historyRequest.status >= 200 && historyRequest.status < 400){
             for(let i = 0; i < 3; i++){
-                filteredArray.push(historyData.results[Math.floor(Math.random() * 31)])
+                filteredArray.push(historyData.results[Math.floor(Math.random() * 29)])
             }
         }
     }
@@ -648,7 +837,7 @@ function getGeographyQuestions(){
 
         if(geographyRequest.status >= 200 && geographyRequest.status < 400){
             for(let i = 0; i < 2; i++){
-                filteredArray.push(geogData.results[Math.floor(Math.random() * 31)])
+                filteredArray.push(geogData.results[Math.floor(Math.random() * 29)])
             }
         }
         setNextQuestion()
@@ -665,8 +854,7 @@ function getGeographyQuestions(){
 function setNextQuestion(){
     resetState()
     console.log("next question set")
-    if(currentQuestionIndex < filteredArray.length){
-        console.log(filteredArray)
+    if(currentQuestionIndex < 5){
         showQuestion(filteredArray[currentQuestionIndex])
     } else {
         endGame()
@@ -813,15 +1001,30 @@ function endGame(){
     if(!localStorage.level){
         localStorage.setItem('level', 1)
     } else {
-        if(localStorage.getItem(currentQuest) == null){
             localStorage.level++
-        } 
     } //checks if users has a level, sets if they don't, increases if they do. 
     
+
+    if(!localStorage.questions){
+        localStorage.setItem('questions', 5)
+    } else {
+        let totalQuestions = parseInt(localStorage.getItem('questions'))
+        totalQuestions = totalQuestions + 5
+        localStorage.setItem('questions', totalQuestions)
+    }
+
+    if(!localStorage.correctAnswers){
+        localStorage.setItem('correctAnswers', quizScore)
+    } else {
+        let totalAnswers = parseInt(localStorage.getItem('correctAnswers'))
+        totalAnswers = totalAnswers + quizScore
+        localStorage.setItem('correctAnswers', totalAnswers)
+    }
 
     endButton.addEventListener('click', () => {
     closeUI()
     startQuiz()
+    saveData()
     submitContainer.removeChild(endButton)
 
     currentQuestionIndex = 0
@@ -836,12 +1039,15 @@ function endGame(){
     if(localStorage.getItem(currentQuest) != null){
         console.log('called improve fruit')
         improveFruit(quizScore)
+        localStorage.level--
+        console.log(localStorage.level)
+        checkAchievements()
     } else {
         console.log('called createFruit')
         createFruit(quizScore)
-        nextQuest()}
+        nextQuest()
+        checkAchievements()}
     }) 
-
     
   
 }//function resets the quiz ui and other elements like quizScore, the question index, and empties the array. Re-adds categories and hides the score, calls nextQuest.
@@ -878,9 +1084,22 @@ function nextQuest(){
         }
     })
 
-    
+    if(localStorage.level > 5){
+            const questView = document.createElement('div')
+            questView.classList.add('quests')
+            const newQuest = document.createElement('div')
+            const beginQuizBtn = document.createElement('button')
+            newQuest.innerText = 'More fruits coming soon! improve your skills or play for fun'
+            beginQuizBtn.innerText = 'Begin quiz'
+            beginQuiz.id = "begin_quiz"
+            beginQuizBtn.addEventListener('click', openQuiz)
+            newQuest.classList.add('flex')
+            beginQuizBtn.classList.add('btn')
+            questElement.append(questView)
+            questView.append(newQuest, beginQuizBtn)
+    }
 
-    saveData()
+    
 } //checks level and compares to quests values, adapts the quest ui to display the quests available based on level. 
 
 
@@ -928,6 +1147,8 @@ function createFruit (quizScore){
             newFruit.classList.add('fruit')
             newFruit.dataset.fruitValue = fruit.value
             newFruit.dataset.questvalue = sessionStorage.quest
+            fruitType.dataset.questvalue = sessionStorage.quest
+            valueView.dataset.questvalue = sessionStorage.quest
             newFruit.id = sessionStorage.quest
             fruitsContainer.append(newFruit)
             let seedsPerSecond = parseInt(localStorage.seeds_per_second)
@@ -960,6 +1181,9 @@ function createFruit (quizScore){
             newFruit.style.color = "#000000"
             newFruit.style.fontWeight = 600
             newFruit.dataset.questvalue = sessionStorage.quest
+            newFruit.id = sessionStorage.quest
+            fruitType.dataset.questvalue = sessionStorage.quest
+            valueView.dataset.questvalue = sessionStorage.quest
             newFruit.classList.add('fruit')
             skillsContainer.append(newFruit)
             let seedsPerSecond = parseInt(localStorage.seeds_per_second)
@@ -979,20 +1203,37 @@ function createFruit (quizScore){
 } //creates fruit !AND skill elements
 
 function improveFruit(quiz_score){
+
     let currentQuest = sessionStorage.quest
-    const currentFruit = document.getElementById(currentQuest)
     
-    const valueView = currentFruit.childNodes[1]
+    let currentFruit = document.getElementById(currentQuest)
+    
+    let valueView = currentFruit.childNodes[1]
 
     
-    const fruitValue = currentFruit.dataset.fruitValue
+    let fruitValue; 
+    
+    fruits.forEach(fruit => {
+        if(fruit.requiredValue == currentQuest){
+            fruitValue = fruit.value
+        }
+    })
 
-    const newEarnings = Math.round((fruitValue * quiz_score) * 100) /100
-    let currentEarnings = parseInt(valueView.dataset.value)
+    skills.forEach(skill => {
+        if(skill.requiredValue == currentQuest){
+            fruitValue = skill.value 
+        }
+    })
 
+    let newEarnings = Math.round((fruitValue * quiz_score) * 100) /100
+
+    let currentEarnings = parseInt(localStorage.getItem(currentQuest))
+
+    
     if(currentEarnings < newEarnings){
+        let maxValue = fruitValue * 5
 
-        valueView.innerHTML = newEarnings + ' sps'
+        valueView.innerHTML = newEarnings + '/' + maxValue + ' sps'
         let seedsPerSecond = parseInt(localStorage.seeds_per_second)
         let increasedSeeds = newEarnings - currentEarnings
 
@@ -1008,6 +1249,7 @@ function improveFruit(quiz_score){
     }
 
     quizScore = 0
+    
 
 
 } //improves fruit !AND skill elements
@@ -1021,6 +1263,7 @@ function updateSeeds (seedsPerSecond){
 var interval = setInterval(incrementSeeds, 1000)
 
 function incrementSeeds(){
+    var timeStamp = new Date().getTime()
     if(!localStorage.totalSeeds){
         localStorage.setItem('totalSeeds', 0)
     }
@@ -1032,9 +1275,8 @@ function incrementSeeds(){
         totalSeedElement = totalSeedElement + sPS
         totalSeeds.innerHTML = totalSeedElement
         localStorage.totalSeeds = totalSeedElement
+        localStorage.setItem("timestamp", JSON.stringify(timeStamp))
     }
-
-    
 }
 
 
@@ -1059,11 +1301,12 @@ const islandUpdate = document.getElementById('islandUpdate')
 
 userUpdate.addEventListener('click', () => {
     
-    const userSeeds = parseInt(localStorage.totalSeeds)
+    let userSeeds = parseInt(localStorage.totalSeeds)
     if(userSeeds >= 100000){
         const newUserName = user_name.value
         localStorage.setItem('username', newUserName)
-
+        userSeeds = userSeeds - 100000
+        localStorage.totalSeeds = userSeeds
         userContainer.innerHTML = newUserName
     } else {
         window.alert("not enough seeds")
@@ -1071,95 +1314,61 @@ userUpdate.addEventListener('click', () => {
 })
 
 islandUpdate.addEventListener('click', () => {
-    const userSeeds = parseInt(localStorage.totalSeeds)
+    let userSeeds = parseInt(localStorage.totalSeeds)
     if( userSeeds >= 1000000){
         const newIslandName = island_name.value
         const islandsName = document.getElementById('islands_name')
         islandsName.innerHTML = newIslandName
+        userSeeds = userSeeds - 1000000
+        localStorage.totalSeeds = userSeeds
+    } else {
+        window.alert("not enough seeds")
     }
 })
 
 
-/*in game arrays */
+/* achievements */
 
-const fruits = [
-    {
-        Fruit: 'lemon',
-        value:  1,
-        requiredValue: 'lemonFruit',
-        color: '#dee64e'
-    },
-    {
-        Fruit: 'apple',
-        value: 1.1,
-        requiredValue: 'apple',
-        color: '#8dbf47'
-    },
-    {
-        Fruit: 'banana',
-        value: 1.2,
-        requiredValue: 'banana',
-        color: '#c6c959'
-    }
+function checkAchievements(){
 
-] 
+    const achievementContainer = document.getElementById('main_ach_cont')
 
-const skills = [
-    {
-        Skill: 'Lemonade',
-        value: 2,
-        requiredValue: 'Lemonade',
-        color: "#fff07d"
-    },
-    {
-        Skill: 'Toffee Apples',
-        value: 2.1,
-        requiredValue: 'Toffee Apples',
-        color: "#d5ff82"
-    },
-    {
-        Skill: 'Banana Bread',
-        value: 2.2,
-        requiredValue: 'Banana Bread',
-        color: "#d9d289"
-    }
-]
+    fruits.forEach(fruit =>{
+        let maxValue = fruit.value * 5
+        let reqFruit = fruit.requiredValue
+        let currFruitVal = parseFloat(localStorage.getItem(reqFruit))
+        let currAchievement = fruit.achievement
 
-const textNodes = [
-    {
-        id: 1,
-        text: 'Welcome to the quiz tutorial, here is how it works. There are four categories: General Knowledge, STEM, Arts and Culture, and History and Geography',
+        if(currFruitVal == maxValue){
+           
+            let achievement = document.getElementById(currAchievement)
+
+            achievement.classList.remove('hide')
+            achievement.classList.add('toolTip')
+
+            achievementContainer.classList.remove('hide')
+
+        }
         
-    },
-    {
-        id: 2,
-        text: 'Each quiz will contain 5 questions. Each question you get correct will improve your skill rating, a better skill rating multiplies your earnings by your skill rating.',
-    },
-    {
-        id: 3,
-        text: 'If you get some wrong, you can attempt the quiz again but be warned each attempt will make the difficulty rise. If you get more wrong in the next attempt your skill rating will always remain at the highest value.',
-    },
-    {
-        id: 4,
-        text: 'Let me break down the categories a bit. General Knowledge encompasses all the categories with questions randomly selected from each category.',
-    },
-    { 
-        id: 5,
-        text: 'Science, Technology and Maths will be exactly as they sound an example of it will be: Who founded the gravitaional theory, Answer: Sir Isaac Newton.',
-    },
-    {
-        id: 6,
-        text: 'Arts and Culture will be popular culture references, for example: Who create the Marilyn Diptch, Answer: Andy Warhol',
-    },
-    {
-        id: 7,
-        text: 'History and Geography will be historical and geographical facts, for example: What is the largest river in the world, Answer: The Nile',
-    },
-    {
-        id: 8,
-        text: 'And that is all there is to it. When you\'re ready let\'s begin the first quiz'
-    }
+    })
 
-]
+    skills.forEach(skill => {
+        let maxValue = skill.value * 5
+        let reqSkill = skill.requiredValue
+        let currSkillval = parseFloat(localStorage.getItem(reqSkill))
+        let currAchievement = skill.achievement
+
+        if(currSkillval == maxValue){
+            
+            let achievement = document.getElementById(currAchievement)
+            achievement.classList.remove('hide')
+            achievement.classList.add('toolTip')
+            achievementContainer.classList.remove('hide')
+        }
+    })
+}
+
+
+
 
 
