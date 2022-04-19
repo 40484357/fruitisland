@@ -388,6 +388,8 @@ function onGameLoad(){
         nextQuest()
     }
 
+
+
     checkAchievements()
 }
 
@@ -1276,6 +1278,7 @@ function incrementSeeds(){
         totalSeeds.innerHTML = totalSeedElement
         localStorage.totalSeeds = totalSeedElement
         localStorage.setItem("timestamp", JSON.stringify(timeStamp))
+        document.title = localStorage.totalSeeds + ' seeds'
     }
 }
 
