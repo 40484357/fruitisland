@@ -42,7 +42,15 @@ function saveData(){
         seeds_per_second: localStorage.seeds_per_second,
         tutorialState: true,
         visited: true,
-        timestamp: localStorage.timestamp
+        timestamp: localStorage.timestamp,
+        currentProfile: localStorage.currentProfile,
+        lemon_profile: localStorage.getItem('lemon_profile.svg'),
+        crab_profile: localStorage.getItem('crabapple.svg'),
+        musk_profile: localStorage.getItem('elon_muskmelon.svg'),
+        bill_profile: localStorage.getItem('bill_dates.svg'),
+        mark_profile: localStorage.getItem('mark_zucchini.svg'),
+        che_profile: localStorage.getItem('che_guavera.svg'),
+        islandName: localStorage.getItem('islandName')
     })} else if (userId != null && localStorage.Lemonade == null){
         updateDoc(doc(colRef, userId), {
             username: localStorage.username,
@@ -54,7 +62,15 @@ function saveData(){
             lemonFruit: localStorage.lemonFruit,
             timestamp: localStorage.timestamp,
             questions: localStorage.questions,
-            answers: localStorage.correctAnswers
+            answers: localStorage.correctAnswers,
+            currentProfile: localStorage.currentProfile,
+            lemon_profile: localStorage.getItem('lemon_profile.svg'),
+            crab_profile: localStorage.getItem('crabapple.svg'),
+            musk_profile: localStorage.getItem('elon_muskmelon.svg'),
+            bill_profile: localStorage.getItem('bill_dates.svg'),
+            mark_profile: localStorage.getItem('mark_zucchini.svg'),
+            che_profile: localStorage.getItem('che_guavera.svg'),
+            islandName: localStorage.getItem('islandName')
         })
     } else if (userId != null && localStorage.apple == null){
         updateDoc(doc(colRef, userId), {
@@ -68,7 +84,15 @@ function saveData(){
             lemonade: localStorage.Lemonade,
             timestamp: localStorage.timestamp,
             questions: localStorage.questions,
-            answers: localStorage.correctAnswers
+            answers: localStorage.correctAnswers,
+            currentProfile: localStorage.currentProfile,
+            lemon_profile: localStorage.getItem('lemon_profile.svg'),
+            crab_profile: localStorage.getItem('crabapple.svg'),
+            musk_profile: localStorage.getItem('elon_muskmelon.svg'),
+            bill_profile: localStorage.getItem('bill_dates.svg'),
+            mark_profile: localStorage.getItem('mark_zucchini.svg'),
+            che_profile: localStorage.getItem('che_guavera.svg'),
+            islandName: localStorage.getItem('islandName')
         })
     } else if (userId != null && localStorage.getItem('Toffee Apples') == null){
         updateDoc(doc(colRef, userId), {
@@ -83,7 +107,15 @@ function saveData(){
             apples: localStorage.apple,
             timestamp: localStorage.timestamp,
             questions: localStorage.questions,
-            answers: localStorage.correctAnswers
+            answers: localStorage.correctAnswers,
+            currentProfile: localStorage.currentProfile,
+            lemon_profile: localStorage.getItem('lemon_profile.svg'),
+            crab_profile: localStorage.getItem('crabapple.svg'),
+            musk_profile: localStorage.getItem('elon_muskmelon.svg'),
+            bill_profile: localStorage.getItem('bill_dates.svg'),
+            mark_profile: localStorage.getItem('mark_zucchini.svg'),
+            che_profile: localStorage.getItem('che_guavera.svg'),
+            islandName: localStorage.getItem('islandName')
         })
     } else if (userId != null && localStorage.banana == null){
         updateDoc(doc(colRef, userId), {
@@ -99,7 +131,15 @@ function saveData(){
             toffeeApples: localStorage.getItem('Toffee Apples'),
             timestamp: localStorage.timestamp,
             questions: localStorage.questions,
-            answers: localStorage.correctAnswers
+            answers: localStorage.correctAnswers,
+            currentProfile: localStorage.currentProfile,
+            lemon_profile: localStorage.getItem('lemon_profile.svg'),
+            crab_profile: localStorage.getItem('crabapple.svg'),
+            musk_profile: localStorage.getItem('elon_muskmelon.svg'),
+            bill_profile: localStorage.getItem('bill_dates.svg'),
+            mark_profile: localStorage.getItem('mark_zucchini.svg'),
+            che_profile: localStorage.getItem('che_guavera.svg'),
+            islandName: localStorage.getItem('islandName')
         })
     } else if (userId != null && localStorage.getItem('Banana Bread') == null){
         updateDoc(doc(colRef, userId), {
@@ -116,7 +156,15 @@ function saveData(){
             banana: localStorage.banana,
             timestamp: localStorage.timestamp,
             questions: localStorage.questions,
-            answers: localStorage.correctAnswers
+            answers: localStorage.correctAnswers,
+            currentProfile: localStorage.currentProfile,
+            lemon_profile: localStorage.getItem('lemon_profile.svg'),
+            crab_profile: localStorage.getItem('crabapple.svg'),
+            musk_profile: localStorage.getItem('elon_muskmelon.svg'),
+            bill_profile: localStorage.getItem('bill_dates.svg'),
+            mark_profile: localStorage.getItem('mark_zucchini.svg'),
+            che_profile: localStorage.getItem('che_guavera.svg'),
+            islandName: localStorage.getItem('islandName')
         })
     } else if (userId != null ){
         updateDoc(doc(colRef, userId), {
@@ -134,7 +182,15 @@ function saveData(){
             bananaBread: localStorage.getItem('Banana Bread'),
             timestamp: localStorage.timestamp,
             questions: localStorage.questions,
-            answers: localStorage.correctAnswers
+            answers: localStorage.correctAnswers,
+            currentProfile: localStorage.currentProfile,
+            lemon_profile: localStorage.getItem('lemon_profile.svg'),
+            crab_profile: localStorage.getItem('crabapple.svg'),
+            musk_profile: localStorage.getItem('elon_muskmelon.svg'),
+            bill_profile: localStorage.getItem('bill_dates.svg'),
+            mark_profile: localStorage.getItem('mark_zucchini.svg'),
+            che_profile: localStorage.getItem('che_guavera.svg'),
+            islandName: localStorage.getItem('islandName')
         })
     }
 
@@ -232,6 +288,39 @@ const textNodes = [
 
 ]
 
+const profileImages = [
+    {
+        image: "lemon_profile.svg",
+        cost: "0",
+        quote: 'Name\'s Lemon Chillo, I\'m the sour to your sweet'
+    },
+    {
+        image: "crabapple.svg",
+        cost: "100000",
+        quote: 'Everything is a rave when you\'re a crab give me a click!'
+    },
+    {
+        image: "elon_muskmelon.svg",
+        cost: "150000",
+        quote: 'Correct me if I\'m wrong but this doesn\'t look like Mars'
+    },
+    {
+        image: "bill_dates.svg",
+        cost: "150000",
+        quote: 'Who needs windows when you live on an island!'
+    },
+    {
+        image: "mark_zucchini.svg",
+        cost: "200000",
+        quote: 'I like fruit, but I prefer your cookies!'
+    },
+    {
+        image: "che_guavera.svg",
+        cost: "300000",
+        quote: 'The revolution is not an apple that falls when it is ripe. You have to make it fall!'
+    }
+]
+
 /* in game important variables */
 
 const beginQuiz = document.getElementById('begin_quiz')
@@ -243,6 +332,8 @@ const submitContainer = document.getElementById('submit-and-next')
 const close = document.getElementById('close')
 const closeOptions = document.getElementById('close_options')
 const allQuests = document.getElementById('quests')
+const profilepic = document.getElementById('profile_picture')
+const quote = document.getElementById('userQuote')
 
 const optionsElement = document.getElementById('options')
 const optionsUI = document.getElementById('optionsUI')
@@ -273,7 +364,6 @@ const seedsPS = document.getElementById('seeds-per-second')
 const totalSeedsItem = document.getElementById('total-seeds')
 const fruitsContainer = document.getElementById('fruits-container')
 const skillsContainer = document.getElementById('skills-container')
-const userContainer = document.getElementById('user')
 
 const gameLoadFruits = [
     {
@@ -353,8 +443,41 @@ const quests = [
  
 function onGameLoad(){
 
+    if(localStorage.seeds_per_second != null){
     seedsPS.innerText = localStorage.seeds_per_second
     totalSeedsItem.innerText = localStorage.totalSeeds
+    } else {seedsPS.innerText = 0 
+    totalSeedsItem.innerText = 0}
+
+
+    profileImages.forEach(item => {
+        if(localStorage.getItem(item.image) == null){
+            localStorage.setItem(item.image, "0")
+        } else if (localStorage.getItem('currentProfile') == item.image){
+            quote.innerHTML = item.quote
+        }
+    })
+
+    if(localStorage.getItem('currentProfile') == null){
+        localStorage.setItem('currentProfile', 'lemon_profile.svg')
+    } else {
+        profilepic.src = localStorage.getItem('currentProfile')
+    }
+
+    if(localStorage.getItem('currentProfile') == 'crabapple.svg'){
+        profilepic.addEventListener('click', ()  =>{
+            window.open('https://juststream.live/PruneDecidedDeports', '_blank').focus();
+        })
+    }
+
+    if(localStorage.getItem('islandName' == null)){
+        localStorage.setItem('islandName', 'Fruit Island')
+    }
+
+    if(localStorage.timestamp == null){
+        var timestamp = new Date().getTime()
+        localStorage.setItem('timestamp',  timestamp)
+    }
 
     gameLoadFruits.forEach(fruit =>{
 
@@ -376,11 +499,9 @@ function onGameLoad(){
         loadSkillItem(skillRequired, skillName, skillColor, skillValue)
     })
 
-    if(localStorage.getItem('username') != null){
-        userContainer.innerHTML = localStorage.getItem('username')
-    } else {
+    if(localStorage.getItem('username') == null){
         let genUser = Math.floor(Math.random() * 150)
-        userContainer.innerHTML = 'Guest#' + genUser
+        
         localStorage.setItem('username', 'Guest#' + genUser)
     }
 
@@ -1290,6 +1411,10 @@ function incrementSeeds(){
 
 const user_name = document.getElementById('user_name')
 const island_name = document.getElementById('island_name')
+const profile_image_element = document.getElementById('profile_images')
+const profile_update = document.getElementById('profile_update')
+
+profile_update.addEventListener('click', updateImage)
 
 optionsElement.addEventListener('click', () => {
     
@@ -1310,7 +1435,7 @@ userUpdate.addEventListener('click', () => {
         localStorage.setItem('username', newUserName)
         userSeeds = userSeeds - 100000
         localStorage.totalSeeds = userSeeds
-        userContainer.innerHTML = newUserName
+        saveData()
     } else {
         window.alert("not enough seeds")
     }
@@ -1324,11 +1449,99 @@ islandUpdate.addEventListener('click', () => {
         islandsName.innerHTML = newIslandName
         userSeeds = userSeeds - 1000000
         localStorage.totalSeeds = userSeeds
+        localStorage.setItem('islandName', newIslandName)
+        saveData()
     } else {
         window.alert("not enough seeds")
     }
 })
 
+const profile_lemon = document.getElementById('lemon_profile')
+const profile_apple = document.getElementById('crab_apple')
+const profile_melon = document.getElementById('musk_melon')
+const profile_zucc = document.getElementById('mark_zucc')
+const profile_date = document.getElementById('bill_dates')
+const profile_guava = document.getElementById('che_guav')
+
+profile_lemon.addEventListener('click', profileSelect)
+profile_apple.addEventListener('click', profileSelect)
+profile_melon.addEventListener('click', profileSelect)
+profile_zucc.addEventListener('click', profileSelect)
+profile_date.addEventListener('click', profileSelect)
+profile_guava.addEventListener('click', profileSelect)
+
+
+
+function profileSelect(e){
+
+    const selectedProfile = e.target
+
+    const childElements = profile_image_element.querySelectorAll('img')
+
+    childElements.forEach(child => {
+        child.style.backgroundColor = 'transparent'
+    })
+
+    let imageToCheck = selectedProfile.dataset.profile_image
+    
+    
+    setImage(imageToCheck, selectedProfile)
+}
+
+let imageCost = 0;
+let userSeeds = parseInt(localStorage.totalSeeds)
+
+function setImage(imageToCheck, selectedProfile){
+    
+    console.log('image is ', imageToCheck)
+
+    profileImages.forEach(item =>{
+
+        if (imageToCheck == item.image){
+            let currImage = imageToCheck
+
+            console.log(userSeeds)
+
+            imageCost = parseInt(item.cost)
+
+            if(localStorage.getItem(currImage) == '1'){
+                profile_update.dataset.image = currImage
+                profile_update.dataset.cost = '0'
+                selectedProfile.style.backgroundColor = '#2dad4f'
+                profile_update.dataset.quote = item.quote
+            } else if (userSeeds > imageCost){
+                profile_update.dataset.image = currImage
+                profile_update.dataset.cost = imageCost
+                profile_update.dataset.quote = item.quote
+                selectedProfile.style.backgroundColor = '#2dad4f'
+            } else {
+                window.alert('not enough seeds')
+            }
+        }
+    })
+}
+
+
+
+function updateImage (){
+    let imgUrl = profile_update.dataset.image
+    profilepic.src = profile_update.dataset.image
+    imageCost = parseInt(profile_update.dataset.cost)
+    localStorage.setItem(imgUrl, '1')
+    localStorage.setItem('currentProfile', imgUrl)
+    userSeeds = userSeeds - imageCost 
+    localStorage.totalSeeds = userSeeds
+    quote.innerHTML = profile_update.dataset.quote
+    if(imgUrl == "crabapple.svg"){
+        profilepic.addEventListener('click', ()  =>{
+            window.open('https://juststream.live/PruneDecidedDeports', '_blank').focus();
+        })
+    } else {
+        profilepic.removeEventListener('click')
+    }
+    saveData()
+    
+}
 
 /* achievements */
 

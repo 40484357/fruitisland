@@ -12,16 +12,19 @@
         <script defer src="game.bundle.js"></script>
     </head>
     <body>
-        <header class="page_header">
-            <div id="user">
-                username
+        <header>
+            <div class="page_header">
+                <div class="toolTip" id="user">
+                    <img src="lemon_profile.svg" alt="lemon profile" id="profile_picture"><span class="toolTipText" id="userQuote">Name's Lemon Chillo, I'm the sour to your sweet</span>
+                </div>
+                <div class="header_text" id="islands_name">
+                    Fruit Island
+                </div>
+                <div id="options">
+                    <img src="pineapple_settings.svg" alt="settings">
+                </div>
             </div>
-            <div class="header_text" id="islands_name">
-                Fruit Island
-            </div>
-            <div id="options">
-               Options
-            </div>
+            <div class="header_border"><img src="header-border.svg" alt=""></div>
         </header>
         <div class="content-container">
             <div class="main-ui">
@@ -65,6 +68,21 @@
                             <input type="text" id="island_name">
                             <button class="btn" id="islandUpdate">update</button>
                         </div>
+                        <div class="flex_column">
+                            <div class = "flex_row">
+                                <div class="option_title">Change your profile image: </div>
+                                <button class="btn" id="profile_update">update</button>
+                            </div>
+                            <div  id="profile_images">
+                                <div class="toolTip"  data-profile_image="lemon_profile.svg" id="lemon_profile"><img src="lemon_profile.svg" alt="lemon profile" data-profile_image="lemon_profile.svg" ><span class="toolTipText">Lemon Chillo: free</span></div>
+                                <div class="toolTip" data-profile_image="crabapple.svg" id="crab_apple"><img src="crabapple.svg" alt="crab apple" data-profile_image="crabapple.svg" ><span class="toolTipText">Crab Apple: 100 000</span></div>
+                                <div class="toolTip" data-profile_image="elon_muskmelon.svg" id="musk_melon"><img src="elon_muskmelon.svg" alt="musk melon" data-profile_image="elon_muskmelon.svg"  ><span class="toolTipText">Elon Muskmelon: 150 000 seeds</span></div>
+                                <div class="toolTip" data-profile_image="bill_dates.svg" id="bill_dates"><img src="bill_dates.svg" alt="bill dates" data-profile_image="bill_dates.svg" ><span class="toolTipText">Bill Dates: 150 000 seeds</span></div>
+                                <div class="toolTip" data-profile_image="mark_zucchini.svg" id="mark_zucc"><img src="mark_zucchini.svg" alt="mark zuchinni" data-profile_image="mark_zucchini.svg" ><span class="toolTipText">Mark Zucchini: 200 000 seeds</span></div>
+                                <div class="toolTip" data-profile_image="che_guavera.svg" id="che_guav"><img src="che_guavera.svg" alt="che guava" data-profile_image="che_guavera.svg" ><span class="toolTipText" >Che Guavera: 300 000 seeds</span></div>
+                            </div>
+                            
+                        </div>
                         <div class="flex_row">
                             <div class="option_title">Create an account</div>
                             <button class="btn"><a href="register.html">register</a></button>
@@ -73,7 +91,7 @@
                 </div> 
                 <div class="seed_status">
                     <div class="seeds_second">
-                        <div class = 'padding-top'>Seeds per second</div>
+                        <div class = 'padding-top'>Seeds per second (sps)</div>
                         <div class = 'padding-top' id = 'seeds-per-second'>0</div>
                     </div>
                     <div class="total_seeds">
@@ -123,27 +141,32 @@
 
                 </div> 
             </div>
-            <aside class="fruits" id="fruits-container">
+        <aside class="fruit_main_container" >   
+            <div class="fruits" id="fruits-container">
                 <div class="fruits_header">Fruits</div>
                 <div class="fruit fruit_main">
-                    <div class="fruit_type">Fruit</div>
-                    <div class="seeds_per_second">
-                        Earnings
-                    </div>
+                <div class="fruit_type">Fruit</div>
+                <div class="seeds_per_second">
+                    Earnings
                 </div>
-                <!-- <div class="fruit">
-                    <div class="fruit_type" id="lemon">Lemon</div>
-                    <div class="seeds_per_second">
-                        0
-                    </div>
-                </div> -->
-            </aside>
-            <aside class="skills" id="skills-container">
+            </div>
+            </div>
+            <div class="border">
+                <img class="fruits_border" src="border.svg" alt="vine border ">
+            </div>
+        </aside>
+            <aside class="skills fruit_main_container" >
+            <div class="border">
+                <img class="skills_border" src="skill-border.svg" alt="vine border">
+            </div>
+            <div class="fruits" id="skills-container">
                 <div class="fruits_header">Skills</div>
                 <div class="fruit fruit_main">
                     <div class="fruit_type">Skill</div>
                     <div class="seeds_per_second">Earnings</div>
                 </div>
+            </div>
+            
             </aside>
         </div>
 

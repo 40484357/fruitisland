@@ -126,6 +126,7 @@ login_form.addEventListener('submit', (e) => {
     })
 })
 
+
 function loadData(userId){
     getDoc(doc(colRef, userId))
         .then((doc) => {
@@ -143,11 +144,19 @@ function loadData(userId){
             localStorage.setItem("totalSeeds", doc.data().totalSeeds) 
             localStorage.setItem("tutorialState", doc.data().tutorialState) 
             localStorage.setItem("username", doc.data().username) 
-            localStorage.setItem('apple', doc.data().apple) 
+            localStorage.setItem('apple', doc.data().apples) 
             localStorage.setItem('banana', doc.data().banana) 
             localStorage.setItem('Lemonade', doc.data().lemonade) 
             localStorage.setItem('Toffee Apples', doc.data().toffeeApples) 
             localStorage.setItem('Banana Bread', doc.data().bananaBread)
+            localStorage.setItem('currentProfile', doc.data().currentProfile)
+            localStorage.setItem('lemon_profile.svg', doc.data().lemon_profile)
+            localStorage.setItem('crabapple.svg', doc.data().crab_profile)
+            localStorage.setItem('elon_muskmelon.svg', doc.data().musk_profile)
+            localStorage.setItem('bill_dates.svg', doc.data().bill_profile)
+            localStorage.setItem('mark_zucchini.svg', doc.data().mark_profile)
+            localStorage.setItem('che_guavera.svg', doc.data().che_profile)
+            localStorage.setItem('islandName', doc.data().islandName)
          }
          window.location.href = "maingame.html"
         })
