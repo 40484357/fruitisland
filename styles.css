@@ -4,11 +4,6 @@
     
 }
 
-@media screen and (max-width: 1000px )  {
-    *{
-        font-size: 12px;
-    }
-}
 
 
 body{
@@ -97,10 +92,12 @@ header{
 }
 
 .header_text{
-    font-family:'Shizuru', cursive;
+    font-family:'Permanent Marker', cursive;
     font-size: 3em;
-    color: white;
+    color: #000000;
+    font-weight: 900;
     width: fit-content;
+    letter-spacing: 0.25em;
 }
 
 .body_container{
@@ -168,6 +165,7 @@ a{
     cursor: pointer;
     justify-content: center;
     align-items: center;
+    padding-bottom: 1em;
 }
 
 .text_decoration{
@@ -198,7 +196,16 @@ a{
     flex: 50%;
     background: rgb(117,79,17);
     background: linear-gradient(90deg, rgba(117,79,17,1) 0%, rgba(110,94,22,1) 36%, rgba(156,93,10,1) 100%);
+    overflow:scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
+
+.main-ui::-webkit-scrollbar{
+    display: none;
+}
+
+
 
 .fruit_main_container{
     display: flex;
