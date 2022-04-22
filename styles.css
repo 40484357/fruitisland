@@ -68,7 +68,24 @@ header{
 
 #profile_images{
     margin-top: 2em;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
 }
+
+#profile_images>*{
+    margin-top: 1em;
+    align-items: center;
+}
+
+#bill_dates{
+    margin-left: 4em;
+}
+
+#mark_zucc{
+    margin-left: 4em;
+}
+
 
 #user{
     margin-left: 1em;
@@ -373,7 +390,7 @@ a{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #423F3F;
+    background-color: transparent;
 }
 
 #options_container >*{

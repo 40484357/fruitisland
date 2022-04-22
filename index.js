@@ -44,19 +44,19 @@ const welcomeNodes = [
         id: 1
     },
     {
-        text: "See fruits allow us to do many things, add variety to our foods, make alcohol, make sweet drinks etc. You can sell fruits or fruit based products for seeds, not fruit seeds but sunflower seeds and you can use those sunflower seeds to buy fruit seeds from people and grow more fruits. I'll start you off, here's some lemon seeds. ",
+        text: "See, fruits allow us to do many things: add variety to our foods, make alcohol, make sweet drinks, etc. You can sell fruits or fruit-based products for seeds. I'll start you off, here's some lemon seeds.",
         id: 2
     },
     {
-        text: "Oh sorry, ofcourse you won't know how to grow these, don't worry I'll teach you but here are how things work.",
+        text: "Oh sorry, of course you won't know how to grow these, don't worry I'll teach you how things work.",
         id: 3
     },
     {
-        text: "Consider any teachings Fruits of Knowledge or Skills. To develop skills you'll go through a 5 question quiz, the better you do in the quiz the better your skill rating. Your rating can make your products 5 times more valuable.",
+        text: "You can grow fruits by answering a five question quiz. The more questions you answer correctly, the more fruit you will earn. Once you’ve obtained fruits, you can complete more quizzes to learn the skills needed to make fruit-based products. ",
         id: 4
     },
     {
-        text: "So when you're ready let's get started",
+        text: "So, when you're ready, let's get started!",
         id: 5
     }
 
