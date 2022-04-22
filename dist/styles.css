@@ -40,7 +40,8 @@
         order: 1 !important;
         padding: 1em 2em !important;
         overflow-x: scroll;
-       
+        background-size: cover;
+       border: 1px solid white;
     }
 
     .fruit_main_container::-webkit-scrollbar{
@@ -97,7 +98,8 @@
 
     #profile_images{
         overflow: scroll;
-    }
+        height: fit-content;
+    } 
 
     #profile_images::-webkit-scrollbar{
         height: 2px;
@@ -109,6 +111,8 @@
 
     span{
         font-size: 1.5rem !important;
+        top: 0 !important;
+        right: 0 !important;
     }
 }
 
