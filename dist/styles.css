@@ -63,22 +63,20 @@ header{
 #profile_images{
     margin-top: 2em;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1em;
+    margin-left: 1em;
 }
 
 #profile_images>*{
     margin-top: 1em;
     align-items: center;
+    margin-left: 1em;
+    margin-right: 1em;
+    border-radius: 10px; 
 }
 
-#bill_dates{
-    margin-left: 4em;
-}
 
-#mark_zucc{
-    margin-left: 4em;
-}
 
 
 #user{
@@ -531,6 +529,10 @@ a{
     width: fit-content;
     height: fit-content;
     margin: 0 3em;
+  }
+
+  .toolTip > img{
+      border-radius: 50%;
   }
 
   /* Tooltip text */
