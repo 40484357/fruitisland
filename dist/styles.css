@@ -4,8 +4,7 @@
     
 }
 
-@media  screen and (max-width: 1280px ) {
-
+@media only screen and  (min-device-width: 500px) and (max-width: 1280px)   {
 
     body{
         font-size: 12px !important;
@@ -16,8 +15,101 @@
         padding-right: 0 !important;
 
     }
+   
+}
+
+@media only screen and (max-device-width: 400px) {
+
+    body{
+        overflow-y: hidden !important ;
+    }
+   
+    .content-container{
+        display: grid !important;
+        flex-direction: column !important;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 20% 100%;
+    }
+
+    .border{
+        display: none !important;
+    }
+
+    .fruit_main_container{
+        width: 100% !important;
+        order: 1 !important;
+        padding: 1em 2em !important;
+        overflow-x: scroll;
+       
+    }
+
+    .fruit_main_container::-webkit-scrollbar{
+        width: 1px;
+    }
 
    
+
+    .main-ui{
+        height: 50%;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+
+    .seed_status > *{
+        font-size: 1.75rem !important;
+    }
+    
+    .quest_container > *{
+        font-size: 1.75rem !important;
+    }
+
+    .fruit{
+        font-size: 1.5rem !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    .fruit > *{
+        padding: 0.5em !important;
+    }
+
+    .fruits_header{
+        font-size: 2rem !important;
+    }
+
+    button{
+        font-size: 1.5rem !important;
+    }
+
+    #quiz_ui{
+        font-size: 2rem !important;
+    }
+
+    #optionsUI{
+        font-size: 1.25rem !important;
+        width: 90% !important;
+        overflow: hidden;
+    }
+
+    .options_container > *{
+        width: fit-content !important;
+    }
+
+    #profile_images{
+        overflow: scroll;
+    }
+
+    #profile_images::-webkit-scrollbar{
+        height: 2px;
+    }
+
+    .achievements{
+        font-size: 3rem !important;
+    }
+
+    span{
+        font-size: 1.5rem !important;
+    }
 }
 
 body{
