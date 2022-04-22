@@ -254,36 +254,36 @@ const skills = [
 const textNodes = [
     {
         id: 1,
-        text: 'Welcome to the quiz tutorial, here is how it works. There are four categories: General Knowledge, STEM, Arts and Culture, and History and Geography',
+        text: "Welcome to the quiz tutorial, here is how it works. There are four categories: General Knowledge, STEM, Arts and Culture, and History and Geography",
         
     },
     {
         id: 2,
-        text: 'Each quiz will contain 5 questions. Each question you get correct will improve your skill rating, a better skill rating multiplies your earnings by your skill rating.',
+        text: "Each quiz contains 5 questions. Each question you answer correctly will improve your skill rating, a better skill rating multiplies your seed earnings.",
     },
     {
         id: 3,
-        text: 'If you get some wrong, you can attempt the quiz again but be warned each attempt will make the difficulty rise. If you get more wrong in the next attempt your skill rating will always remain at the highest value.',
+        text: "If you get some questions wrong you can attempt the quiz again but be warned each attempt will make the difficulty rise. If you get more questions wrong in the next attempt your skill rating will always remain at the highest value.",
     },
     {
         id: 4,
-        text: 'Let me break down the categories a bit. General Knowledge encompasses all the categories with questions randomly selected from each category.',
+        text: "Let me break down the categories a bit. General Knowledge encompasses all the categories with questions randomly selected from each category.",
     },
     { 
         id: 5,
-        text: 'Science, Technology and Maths will be exactly as they sound an example of it will be: Who founded the gravitaional theory, Answer: Sir Isaac Newton.',
+        text: "STEM will cover science, technology, engineering and maths questions, for example: Who founded the gravitational theory? Answer: Sir Isaac Newton",
     },
     {
         id: 6,
-        text: 'Arts and Culture will be popular culture references, for example: Who create the Marilyn Diptch, Answer: Andy Warhol',
+        text: "Arts and Culture will be popular culture references, for example: Who created the Marilyn Diptch? Answer: Andy Warhol",
     },
     {
         id: 7,
-        text: 'History and Geography will be historical and geographical facts, for example: What is the largest river in the world, Answer: The Nile',
+        text: "History and Geography will be historical and geographical facts, for example: What is the largest river in the world? Answer: The Nile",
     },
     {
         id: 8,
-        text: 'And that is all there is to it. When you\'re ready let\'s begin the first quiz'
+        text: "And that’s all there is to it. When you\'re ready let\'s begin the first quiz."
     }
 
 ]
@@ -1489,17 +1489,18 @@ function profileSelect(e){
 }
 
 let imageCost = 0;
-let userSeeds = parseInt(localStorage.totalSeeds)
+
 
 function setImage(imageToCheck, selectedProfile){
     
     console.log('image is ', imageToCheck)
+    let userSeeds = parseInt(localStorage.totalSeeds)
 
     profileImages.forEach(item =>{
 
         if (imageToCheck == item.image){
             let currImage = imageToCheck
-
+            console.log('currImage is ' + currImage)
             console.log(userSeeds)
 
             imageCost = parseInt(item.cost)
@@ -1509,13 +1510,15 @@ function setImage(imageToCheck, selectedProfile){
                 profile_update.dataset.cost = '0'
                 selectedProfile.style.backgroundColor = '#2dad4f'
                 profile_update.dataset.quote = item.quote
-            } else if (userSeeds > imageCost){
+            } else if (userSeeds >= imageCost){
                 profile_update.dataset.image = currImage
                 profile_update.dataset.cost = imageCost
                 profile_update.dataset.quote = item.quote
                 selectedProfile.style.backgroundColor = '#2dad4f'
+                console.log(imageCost, 'cost is')
             } else {
                 window.alert('not enough seeds')
+                console.log(imageCost, ' cost is', userSeeds, ' userseeds' )
             }
         }
     })
@@ -1524,6 +1527,7 @@ function setImage(imageToCheck, selectedProfile){
 
 
 function updateImage (){
+    let userSeeds = parseInt(localStorage.totalSeeds)
     let imgUrl = profile_update.dataset.image
     profilepic.src = profile_update.dataset.image
     imageCost = parseInt(profile_update.dataset.cost)
