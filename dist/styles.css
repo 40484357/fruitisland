@@ -16,6 +16,7 @@
         padding-right: 0 !important;
 
     }
+
    
 }
 
@@ -246,7 +247,7 @@ a{
     height: 100%;
     padding-bottom: 5%;
     position:relative;
-    right: 78%;
+    right: 72%;
 }
 
 .skills_border{
@@ -259,7 +260,7 @@ a{
 .fruits{
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 107%;
     padding-top: 1em;
 }
 
@@ -346,6 +347,7 @@ a{
 
 #skills-container > .fruit{
     margin-left: -0.22em;
+    width: 100% !important;
 }
 
 .hide{
@@ -513,17 +515,19 @@ a{
 }
 
 .achievements{
-    font-size: 3rem;
+    font-size: 2rem;
     font-family: 'Shizuru', cursive;
     color: white;
     width: fit-content;
-    margin-left: 0.2em;
+    margin-left: 0.5em;
     padding-bottom: 0.5em;
 }
 
 .achievements_container{
     width:fit-content;
-}
+} 
+
+
 
 
 
@@ -535,9 +539,11 @@ a{
     margin: 0 3em;
   }
 
-  .toolTip > img{
-      border-radius: 50%;
-  }
+.toolTip > img{
+    border-radius: 50%;
+    width: 6em;
+    height: 6em;
+}
 
   /* Tooltip text */
 .toolTip .toolTipText {
