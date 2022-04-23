@@ -48,8 +48,6 @@
         width: 1px;
     }
 
-   
-
     .main-ui{
         height: 50%;
         grid-column-start: 1;
@@ -105,6 +103,8 @@
         height: 2px;
     }
 
+ 
+
     .achievements{
         font-size: 3rem !important;
     }
@@ -114,6 +114,12 @@
         top: 0 !important;
         right: 0 !important;
     }
+
+    .answer_btn_grid{
+        grid-template-columns: none;
+    }
+
+
 }
 
 body{
@@ -122,7 +128,7 @@ body{
     width: fit-content;
     height: max-content;
     background:linear-gradient(90deg, rgba(117,79,17,1) 0%, rgba(110,94,22,1) 36%, rgba(156,93,10,1) 100%);
-    overflow-x:hidden;
+    overflow:hidden;
     font-size: 16px;
 
 }
@@ -130,6 +136,7 @@ body{
 header{
     background-image: url(header-background.svg);
 }
+
 .page_header{
     display: flex;
     width: 100vw;
@@ -174,15 +181,38 @@ header{
     margin-top: 2em;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 1em;
+    grid-template-rows: 50% 50%;
+    
     margin-left: 1em;
 }
 
-#profile_images>*{
-    margin-top: 1em;
+.avatar{
     align-items: center;
-    margin-left: 1em;
-    margin-right: 1em;
+}
+
+.avatar > img{
+    height: 51px;
+    width: 51px;
+}
+
+.modal{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: fit-content;
+    height: fit-content;
+    background-color: #000000;
+    padding: 1em;
+    border-radius: 5px;
+    margin: 5% 25%;
+    
+}
+
+
+
+
+#profile_images>*{
+    align-items: center;
     border-radius: 10px; 
 }
 
@@ -567,6 +597,8 @@ a{
     border: 0.16em solid rgba(255, 255, 255, 0);
     background-color: #682bad;
     color: white;
+    width: 100%;
+    height: fit-content;
 
 }
 
@@ -575,7 +607,8 @@ a{
     flex-direction: row-reverse;
     justify-content: space-between;
     padding-bottom: 1em;
-    background-color: transparent;
+    background: linear-gradient(90deg, rgba(117,79,17,1) 0%, rgba(110,94,22,1) 36%, rgba(156,93,10,1) 100%);
+    border-radius: 5px;
     
 }
 
