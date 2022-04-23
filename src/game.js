@@ -1114,16 +1114,16 @@ function endGame(){
     endButton.classList.add('btn')
     submitContainer.appendChild(endButton)
     if(quizScore == 5){
-        textElement.innerText = 'complete!'
+        textElement.innerText = '5/5 what a starfruit!'
     } else {
-        textElement.innerText = 'Nice try!'
+        textElement.innerText = 'Not quite, click on your fruit to try to improve it!'
     } //checks if user got all questions correct.
 
     let currentQuest = sessionStorage.quest
 
     if(!localStorage.level){
         localStorage.setItem('level', 1)
-    } else {
+    } else if(quizScore > 0) {
             localStorage.level++
     } //checks if users has a level, sets if they don't, increases if they do. 
     
@@ -1249,9 +1249,7 @@ function createFruit (quizScore){
     const fruitsContainer = document.getElementById('fruits-container')
     const skillsContainer = document.getElementById('skills-container')
     
-    if(quizScore < 1){
-        quizScore = quizScore + 1
-    }
+   
 
     fruits.forEach(fruit => {
         if(fruit.requiredValue == sessionStorage.quest){
@@ -1489,7 +1487,7 @@ function profileSelect(e){
 }
 
 let imageCost = 0;
-
+const modal = document.getElementById("modal_box")
 
 function setImage(imageToCheck, selectedProfile){
     
@@ -1517,13 +1515,19 @@ function setImage(imageToCheck, selectedProfile){
                 selectedProfile.style.backgroundColor = '#2dad4f'
                 console.log(imageCost, 'cost is')
             } else {
-                window.alert('not enough seeds')
-                console.log(imageCost, ' cost is', userSeeds, ' userseeds' )
+                
+                modal.style.display = 'block'
             }
         }
     })
 }
 
+
+const closeModal = document.getElementById('modal_close')
+
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none'
+})
 
 
 function updateImage (){

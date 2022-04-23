@@ -29,6 +29,7 @@
         </header>
         <div class="content-container">
             <div class="main-ui">
+                
                 <div class="hide" id="quiz_ui" >
                     <div class="top_bar">
                         <div class="hide" id="score_container">Score: 0/0</div>
@@ -58,9 +59,15 @@
                     <div class="top_bar">
                         <button id="close_options">close</button>
                     </div>
+                    <div id="modal_box" class="modal">
+                        <div class="modal-container">
+                           <p> Not enough seeds for that unfortunately</p>
+                           <button class="btn" id="modal_close">close</button>
+                        </div>
+                    </div>
                     <div id="options_container">
                         <div class="flex_row">
-                            <div class="option_title">change your username for 100 000 seeds</div>
+                            <div class="option_title">New your username for 100 000 seeds</div>
                             <input type="text" id="user_name">
                             <button class="btn" id="userUpdate">update</button>
                         </div>
@@ -71,16 +78,16 @@
                         </div>
                         <div class="flex_column">
                             <div class = "flex_row">
-                                <div class="option_title">Change your profile image: </div>
+                                <div class="option_title">Change your fruit avatar for seeds: </div>
                                 <button class="btn" id="profile_update">update</button>
                             </div>
                             <div  id="profile_images">
-                                <div class="toolTip"  data-profile_image="lemon_profile.svg" id="lemon_profile"><img src="lemon_profile.svg" alt="lemon profile" data-profile_image="lemon_profile.svg" ><span class="toolTipText" data-profile_image="lemon_profile.svg">Lemon Chillo: free</span></div>
-                                <div class="toolTip" data-profile_image="crabapple.svg" id="crab_apple"><img src="crabapple.svg" alt="crab apple" data-profile_image="crabapple.svg" ><span class="toolTipText" data-profile_image="crabapple.svg">Crab Apple: 100 000</span></div>
-                                <div class="toolTip" data-profile_image="elon_muskmelon.svg" id="musk_melon"><img src="elon_muskmelon.svg" alt="musk melon" data-profile_image="elon_muskmelon.svg"  ><span class="toolTipText" data-profile_image="elon_muskmelon.svg">Elon Muskmelon: 150 000 seeds</span></div>
-                                <div class="toolTip" data-profile_image="bill_dates.svg" id="bill_dates"><img src="bill_dates.svg" alt="bill dates" data-profile_image="bill_dates.svg" ><span class="toolTipText" data-profile_image="bill_dates.svg" >Bill Dates: 150 000 seeds</span></div>
-                                <div class="toolTip" data-profile_image="mark_zucchini.svg" id="mark_zucc"><img src="mark_zucchini.svg" alt="mark zuchinni" data-profile_image="mark_zucchini.svg" ><span class="toolTipText" data-profile_image="mark_zucchini.svg">Mark Zucchini: 200 000 seeds</span></div>
-                                <div class="toolTip" data-profile_image="che_guavera.svg" id="che_guav"><img src="che_guavera.svg" alt="che guava" data-profile_image="che_guavera.svg" ><span class="toolTipText" data-profile_image="che_guavera.svg" >Che Guavera: 300 000 seeds</span></div>
+                                <div class="avatar"   id="lemon_profile"><img src="lemon_profile.svg" alt="lemon profile" data-profile_image="lemon_profile.svg" ><div class="avatar_cost" >Lemon Chillo: free</div></div>
+                                <div class="avatar" id="crab_apple"><img src="crabapple.svg" alt="crab apple" data-profile_image="crabapple.svg" ><div class="avatar_cost" >Crab Apple: 100 000</div></div>
+                                <div class="avatar"  id="musk_melon"><img src="elon_muskmelon.svg" alt="musk melon" data-profile_image="elon_muskmelon.svg"  ><div class="avatar_cost" >Elon Muskmelon: 150 000 seeds</div></div>
+                                <div class="avatar"  id="bill_dates"><img src="bill_dates.svg" alt="bill dates" data-profile_image="bill_dates.svg" ><div class="avatar_cost"  >Bill Dates: 150 000 seeds</div></div>
+                                <div class="avatar"  id="mark_zucc"><img src="mark_zucchini.svg" alt="mark zuchinni" data-profile_image="mark_zucchini.svg" ><div class="avatar_cost" >Mark Zucchini: 200 000 seeds</div></div>
+                                <div class="avatar"  id="che_guav"><img src="che_guavera.svg" alt="che guava" data-profile_image="che_guavera.svg" ><div class="avatar_cost" >Che Guavera: 300 000 seeds</div></div>
                             </div>
                             
                         </div>
