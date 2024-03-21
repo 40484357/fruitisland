@@ -82,11 +82,13 @@ const loginForm = document.getElementById("login_form")
 
 loginSwitch.addEventListener('click', () =>{
     
-    loginSwitch.style.backgroundColor = "#5fd47e"
-    registerSwitch.style.backgroundColor ="#d8ebdd"
-    registerSwitch.style.zIndex ="0"
-    loginSwitch.style.zIndex ="1"
+    // loginSwitch.style.backgroundColor = "#5fd47e"
+    // registerSwitch.style.backgroundColor ="#d8ebdd"
+    // registerSwitch.style.zIndex ="0"
+    // loginSwitch.style.zIndex ="1"
 
+    loginSwitch.classList.toggle('active')
+    registerSwitch.classList.toggle('active')
     
     loginForm.classList.remove('hide')
     registerForm.classList.add('hide')
@@ -96,11 +98,12 @@ loginSwitch.addEventListener('click', () =>{
 registerSwitch.addEventListener('click', () =>{
   registerForm.classList.remove('hide')
   loginForm.classList.add('hide')
-  registerSwitch.style.backgroundColor = "#5fd47e"
-  loginSwitch.style.backgroundColor = "#d8ebdd"
-  loginSwitch.style.zIndex = "0"
-  registerSwitch.style.zIndex = "1"
-
+  // registerSwitch.style.backgroundColor = "#5fd47e"
+  // loginSwitch.style.backgroundColor = "#d8ebdd"
+  // loginSwitch.style.zIndex = "0"
+  // registerSwitch.style.zIndex = "1"
+  loginSwitch.classList.toggle('active')
+  registerSwitch.classList.toggle('active')
 })
 
 

@@ -993,6 +993,8 @@ function resetState(){
     } //removes game_button's child elements while they exist. 
 } //resets actual question UI state, called further down, hence the need to move. 
 
+let answer;
+
 function showQuestion(question){
 
     //API questions and contain specialcharacter values, function converts special characters i.e &380 to '
@@ -1022,10 +1024,11 @@ function showQuestion(question){
         } else {
             let correctAnswer = decodeHTML(question.correct_answer)
             newButton.innerText = correctAnswer
+            answer = correctAnswer
             newButton.classList.add('answer_btn')
             newButton.addEventListener('click', selectAnswer)
-            newButton.dataset.correct = true
-            newButton.id = 'correct'
+            //newButton.dataset.correct = true
+            //newButton.id = 'correct'
             game_buttons.appendChild(newButton)
         } 
     }  
@@ -1054,7 +1057,7 @@ element.classList.remove('selected')
 function submit(selectedButton){
     submitContainer.classList.remove('hide')
     
-    if(selectedButton.dataset.correct){
+    if(selectedButton.innerHTML == answer){
         selectedButton.id = "correct"
         submitAnswer.removeEventListener('click', wrongAnswer)
         submitAnswer.addEventListener('click', correctAnswer)
@@ -1079,8 +1082,14 @@ function wrongAnswer(){
     
     textElement.innerText = 'That is not correct'
     game_buttons.firstChild.classList.remove('selected')
-    const correctAnswer = document.getElementById('correct')
-    correctAnswer.classList.add('correct')
+    for(var i = 0; i<game_buttons.children.length; i++){
+        var checkBtn = game_buttons.children[i]
+        if(checkBtn.innerHTML == answer){
+            checkBtn.classList.add('correct')
+        }
+    }
+    // const correctAnswer = document.getElementById('correct')
+    // correctAnswer.classList.add('correct')
     nextQuestion.classList.remove('hide')
     submitAnswer.classList.add('hide')
     
@@ -1556,17 +1565,22 @@ function updateImage (){
 function checkAchievements(){
 
     const achievementContainer = document.getElementById('main_ach_cont')
-
+    const mainUI = document.querySelector('.main-ui')
     fruits.forEach(fruit =>{
         let maxValue = fruit.value * 5
         let reqFruit = fruit.requiredValue
         let currFruitVal = parseFloat(localStorage.getItem(reqFruit))
         let currAchievement = fruit.achievement
-
+        
         if(currFruitVal == maxValue){
            
             let achievement = document.getElementById(currAchievement)
-
+            
+            if(fruit.Fruit == 'lemon'){
+                mainUI.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(lemon-field.png)";
+            } else if (fruit.Fruit == 'apple'){
+                mainUI.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(apple-tree.png)";
+            }
             achievement.classList.remove('hide')
             achievement.classList.add('toolTip')
 
@@ -1585,6 +1599,11 @@ function checkAchievements(){
         if(currSkillval == maxValue){
             
             let achievement = document.getElementById(currAchievement)
+            if(skill.Skill == 'Lemonade'){
+                mainUI.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(lemonade-stand.png)";
+            } else if(skill.Skill == 'Toffee Apples'){
+                mainUI.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(apple-lemon.png)";
+            }
             achievement.classList.remove('hide')
             achievement.classList.add('toolTip')
             achievementContainer.classList.remove('hide')
